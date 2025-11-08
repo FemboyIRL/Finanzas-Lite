@@ -1,4 +1,5 @@
 import 'package:finanzas_lite/models/welcome_page_model.dart';
+import 'package:finanzas_lite/screens/home_screen/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -36,7 +37,11 @@ class WelcomeState extends GetxController {
         curve: Curves.easeInOut,
       );
     } else {
-      Get.offAllNamed('/home');
+      Navigator.of(Get.context!).push(
+        MaterialPageRoute(
+          builder: (BuildContext context) => const HomeScreen(),
+        ),
+      );
     }
   }
 

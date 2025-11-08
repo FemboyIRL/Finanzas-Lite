@@ -54,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // Imagen SVG
+                              // Imagen
                               Image.asset(
                                 step.icon,
                                 height: 220,
