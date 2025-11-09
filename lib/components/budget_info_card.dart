@@ -10,17 +10,16 @@ class BudgetInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Convierte color hex a Color
-    final Color mainColor = Color(int.parse("0xFF${budget.color}"));
-    final double spent =
-        double.tryParse(budget.currentAmountSpent.replaceAll(",", "")) ?? 0;
-    final double limit = double.tryParse(budget.limit.replaceAll(",", "")) ?? 1;
-    final double progress = (spent / limit).clamp(0.0, 1.0);
+    // Obtenemos el progreso
+    final double progress = (budget.currentAmountSpent / budget.limit).clamp(
+      0.0,
+      1.0,
+    );
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: mainColor.withOpacity(0.2),
+        color: budget.color.withOpacity(0.2),
         borderRadius: BorderRadius.circular(50),
       ),
       child: Row(
@@ -29,7 +28,7 @@ class BudgetInfoCard extends StatelessWidget {
           CustomPaint(
             size: const Size(36, 36),
             painter: _CircularBudgetPainter(
-              color: mainColor,
+              color: budget.color,
               progress: progress,
             ),
           ),
@@ -51,8 +50,7 @@ class BudgetInfoCard extends StatelessWidget {
                 Text(
                   "\$${budget.currentAmountSpent}",
                   overflow: TextOverflow.ellipsis,
-
-                  style: TextStyle(fontSize: 12, color: mainColor),
+                  style: TextStyle(fontSize: 12, color: budget.color),
                 ),
               ],
             ),
