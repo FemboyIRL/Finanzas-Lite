@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CommonScaffold extends StatelessWidget {
-  final Widget body;
+  final List<Widget> slivers;
   final PreferredSizeWidget? appBar;
   final Widget? floatingActionButton;
+  final Widget? bottomNavigationBar;
 
   const CommonScaffold({
     super.key,
-    required this.body,
+    required this.slivers,
     this.appBar,
     this.floatingActionButton,
+    this.bottomNavigationBar,
   });
 
   @override
@@ -17,12 +19,11 @@ class CommonScaffold extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       floatingActionButton: floatingActionButton,
+      bottomNavigationBar: bottomNavigationBar,
       body: Stack(
         children: [
-          // Fondo base
           Container(color: const Color(0xFF141326)),
 
-          // Elipse difuminada inferior derecha
           Positioned(
             bottom: -250,
             right: -125,
@@ -32,10 +33,7 @@ class CommonScaffold extends StatelessWidget {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [
-                    Color(0x80E840D1), // semitransparente
-                    Colors.transparent,
-                  ],
+                  colors: [Color(0x80E840D1), Colors.transparent],
                   radius: 0.6,
                 ),
               ),
@@ -49,22 +47,14 @@ class CommonScaffold extends StatelessWidget {
               width: 500,
               height: 450,
               decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
                 gradient: RadialGradient(
-                  colors: [
-                    Color(0x80E840D1), // semitransparente
-                    Colors.transparent,
-                  ],
+                  colors: [Color(0x80E840D1), Colors.transparent],
                 ),
               ),
             ),
           ),
 
-          // Contenido principal
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
-            child: body,
-          ),
+          CustomScrollView(slivers: slivers),
         ],
       ),
     );

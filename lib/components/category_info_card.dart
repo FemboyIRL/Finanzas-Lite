@@ -17,8 +17,8 @@ class CategoryInfoCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            width: 36,
-            height: 36,
+            width: 15,
+            height: 15,
             decoration: BoxDecoration(
               color: category.color,
               shape: BoxShape.circle,

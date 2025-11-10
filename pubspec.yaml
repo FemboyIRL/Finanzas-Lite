@@ -13,6 +13,7 @@ dependencies:
   supabase_flutter: ^2.10.3
   get: ^4.7.2
   flutter_svg: ^2.2.2
+  syncfusion_flutter_charts: ^31.2.5
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +26,5 @@ flutter:
   assets:
     - assets/images/
     - assets/svgs/
+    - assets/svgs/categoryIcons/
+    - assets/svgs/navbar/

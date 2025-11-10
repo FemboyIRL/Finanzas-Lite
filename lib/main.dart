@@ -1,4 +1,4 @@
-import 'package:finanzas_lite/screens/welcome_screen/screen.dart';
+import 'package:finanzas_lite/screens/home_screen/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,7 +41,7 @@ class FinanzasLiteApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         useMaterial3: true,
       ),
-      home: const WelcomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
