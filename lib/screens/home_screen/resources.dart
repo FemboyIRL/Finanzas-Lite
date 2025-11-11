@@ -1,30 +1,31 @@
-import 'package:finanzas_lite/components/category_info_card.dart';
 import 'package:finanzas_lite/components/transaction_widget.dart';
-import 'package:finanzas_lite/models/nav_item.dart';
+import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
+import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class HomeResources extends GetxController {
-  final budgets = <Budget>[
-    Budget(
+  // Datos dummies (de prueba) TODO: sacarlos de supabase
+  final budgets = <BudgetViewModel>[
+    BudgetViewModel(
       color: Color(0xFFFFD466),
       name: "Comida",
       currentAmountSpent: 3430,
       limit: 5000,
     ),
-    Budget(
+    BudgetViewModel(
       color: Color(0xFF66FFA3),
       name: "Transporte",
       currentAmountSpent: 430,
       limit: 800,
     ),
-    Budget(
+    BudgetViewModel(
       color: Color(0xFF3DB9FF),
       name: "Salud",
       currentAmountSpent: 3000,
       limit: 5000.25,
     ),
-    Budget(
+    BudgetViewModel(
       color: Color(0xFFFFD466),
       name: "Vida Diaría DEL PEPE Y ETE SECH",
       currentAmountSpent: 2500,
@@ -85,29 +86,9 @@ class HomeResources extends GetxController {
     ),
   ];
 
+  // Calcular total gastado por todas las cate
   late double total = categories.fold(
     0,
     (sum, c) => sum + c.currentAmountSpent,
   );
-
-  final navItems = <NavItem>[
-    NavItem(iconPath: "assets/svgs/navbar/Home.svg", route: "/home"),
-    NavItem(iconPath: "assets/svgs/navbar/Wallet.svg", route: "/wallet"),
-    NavItem(iconPath: "assets/svgs/navbar/Stats.svg", route: "/stats"),
-    NavItem(iconPath: "assets/svgs/navbar/User.svg", route: "/profile"),
-  ];
-}
-
-class Budget {
-  final Color color;
-  final String name;
-  final double limit;
-  final double currentAmountSpent;
-
-  const Budget({
-    required this.color,
-    required this.name,
-    required this.currentAmountSpent,
-    required this.limit,
-  });
 }

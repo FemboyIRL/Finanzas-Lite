@@ -1,3 +1,4 @@
+import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:flutter/material.dart';
 
 class CategoryInfoCard extends StatelessWidget {
@@ -51,16 +52,4 @@ class CategoryInfoCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class CategoryViewModel {
-  final String name;
-  final double currentAmountSpent;
-  final Color color;
-
-  const CategoryViewModel({
-    required this.currentAmountSpent,
-    required this.color,
-    required this.name,
-  });
 }

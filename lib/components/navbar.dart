@@ -5,9 +5,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class Navbar extends StatelessWidget {
-  final List<NavItem> navItems;
+  final navItems = <NavItem>[
+    NavItem(iconPath: "assets/svgs/navbar/Home.svg", route: "/home"),
+    NavItem(iconPath: "assets/svgs/navbar/Wallet.svg", route: "/wallet"),
+    NavItem(iconPath: "assets/svgs/navbar/Stats.svg", route: "/stats"),
+    NavItem(iconPath: "assets/svgs/navbar/User.svg", route: "/profile"),
+  ];
 
-  const Navbar({super.key, required this.navItems});
+  Navbar({super.key});
 
   @override
   @override

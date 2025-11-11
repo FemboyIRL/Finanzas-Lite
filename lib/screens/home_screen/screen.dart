@@ -3,6 +3,7 @@ import 'package:finanzas_lite/components/category_info_card.dart';
 import 'package:finanzas_lite/components/common_scaffold.dart';
 import 'package:finanzas_lite/components/navbar.dart';
 import 'package:finanzas_lite/components/transaction_widget.dart';
+import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/screens/home_screen/state.dart';
 import 'package:finanzas_lite/utils/custom_doughnut_chart.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
-        bottomNavigationBar: Navbar(navItems: state.navItems),
+        bottomNavigationBar: Navbar(),
       ),
     );
   }
@@ -255,6 +256,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   SizedBox _budgetCard(HomeState state) {
+    //TODO: Pasar estos valores al estado
     // valores de prueba
     double total = 14500;
     double gasto = 12450.30;
