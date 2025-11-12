@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CommonScaffold extends StatelessWidget {
   final List<Widget> slivers;
   final PreferredSizeWidget? appBar;
+  final bool showTopEllipsis;
   final Widget? floatingActionButton;
   final Widget? bottomNavigationBar;
 
@@ -10,6 +11,7 @@ class CommonScaffold extends StatelessWidget {
     super.key,
     required this.slivers,
     this.appBar,
+    this.showTopEllipsis = true,
     this.floatingActionButton,
     this.bottomNavigationBar,
   });
@@ -40,19 +42,21 @@ class CommonScaffold extends StatelessWidget {
             ),
           ),
 
-          Positioned(
-            top: -280,
-            right: 50,
-            child: Container(
-              width: 500,
-              height: 450,
-              decoration: const BoxDecoration(
-                gradient: RadialGradient(
-                  colors: [Color(0x80E840D1), Colors.transparent],
-                ),
-              ),
-            ),
-          ),
+          showTopEllipsis
+              ? Positioned(
+                  top: -280,
+                  right: 50,
+                  child: Container(
+                    width: 500,
+                    height: 450,
+                    decoration: const BoxDecoration(
+                      gradient: RadialGradient(
+                        colors: [Color(0x80E840D1), Colors.transparent],
+                      ),
+                    ),
+                  ),
+                )
+              : SizedBox(),
 
           CustomScrollView(slivers: slivers),
         ],

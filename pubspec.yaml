@@ -14,6 +14,8 @@ dependencies:
   get: ^4.7.2
   flutter_svg: ^2.2.2
   syncfusion_flutter_charts: ^31.2.5
+  intl: ^0.20.2
+  delightful_toast: ^1.1.0
 
 dev_dependencies:
   flutter_test:
