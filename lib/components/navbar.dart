@@ -1,4 +1,5 @@
 import 'package:finanzas_lite/models/nav_item.dart';
+import 'package:finanzas_lite/screens/add_record_screen/screen.dart';
 import 'package:finanzas_lite/screens/home_screen/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -45,30 +46,37 @@ class Navbar extends StatelessWidget {
               SizedBox(
                 width: 50,
                 height: 50,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF6A66FF), Color(0xFF8B86FF)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF6A66FF).withOpacity(0.5),
-                            blurRadius: 10,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                      ),
+                child: GestureDetector(
+                  onTap: () => Navigator.of(Get.context!).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AddRecordScreen(),
                     ),
-                    Icon(Icons.add, color: Colors.white, size: 28),
-                  ],
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Color(0xFF6A66FF), Color(0xFF8B86FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF6A66FF).withOpacity(0.5),
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(Icons.add, color: Colors.white, size: 28),
+                    ],
+                  ),
                 ),
               ),
               _buildNavItem(navItems[2]),
