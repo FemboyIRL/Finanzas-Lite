@@ -1,6 +1,7 @@
 import 'package:finanzas_lite/models/nav_item.dart';
 import 'package:finanzas_lite/screens/add_record_screen/screen.dart';
 import 'package:finanzas_lite/screens/home_screen/screen.dart';
+import 'package:finanzas_lite/screens/records_screen/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -112,7 +113,7 @@ class Navbar extends StatelessWidget {
       case '/wallet':
       // return WalletScreen();
       case '/stats':
-      // return StatsScreen();
+        return RecordsScreen();
       case '/profile':
       // return ProfileScreen();
       default:
