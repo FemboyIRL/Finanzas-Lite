@@ -1,4 +1,3 @@
-import 'package:finanzas_lite/components/transaction_widget.dart';
 import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

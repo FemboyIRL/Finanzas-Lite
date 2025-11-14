@@ -1,4 +1,3 @@
-import 'package:finanzas_lite/components/transaction_widget.dart';
 import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
