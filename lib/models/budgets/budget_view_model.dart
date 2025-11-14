@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 class BudgetViewModel {
-  //TODO: Agregar un onTapGesture
   final Color color;
   final String name;
   final double limit;

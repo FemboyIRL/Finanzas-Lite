@@ -1,9 +1,10 @@
-import 'package:finanzas_lite/components/transaction_widget.dart';
+import 'dart:ui';
+
 import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-class RecordsState extends GetxController {
+class RecordDetailsState extends GetxController {
   final transactions = [
     TransactionViewModel(
       acountNames: ["Cuenta principal"],
@@ -40,25 +41,11 @@ class RecordsState extends GetxController {
     ),
   ];
 
-  final searchValue = "".obs;
-
-  void onSearchUpdated(final String newValue) {
-    searchValue.value = newValue;
+  void onGoBack(BuildContext context) {
+    Navigator.of(context).pop();
   }
 
-  List<TransactionViewModel> filteredOperations() {
-    // Falta agregar otros campos de busqueda, ej: por fecha, por descripcion
-    return transactions.where((item) {
-      final query = searchValue.value.toLowerCase();
+  void onTapSave() {}
 
-      final searchableText = [
-        ...item.acountNames,
-        ...item.categoriesName,
-        item.description,
-        item.amount.toString(),
-      ].join(' ').toLowerCase();
-
-      return searchableText.contains(query);
-    }).toList();
-  }
+  void onTapDelete() {}
 }

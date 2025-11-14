@@ -1,6 +1,7 @@
 import 'package:finanzas_lite/components/transaction_widget.dart';
 import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
+import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -64,7 +65,9 @@ class HomeResources extends GetxController {
       amount: 120.50,
       categoriesName: ["Comida", "Restaurante"],
       date: DateTime.now().subtract(const Duration(days: 1)),
-      onDelete: (callback) => debugPrint("Eliminado comida"),
+      id: '1',
+      type: TransactionType.expense,
+      description: 'Papubuelo se nos fue',
     ),
     TransactionViewModel(
       acountNames: ["Tarjeta crédito"],
@@ -73,7 +76,9 @@ class HomeResources extends GetxController {
       amount: 890.20,
       categoriesName: ["Compras", "Ropa"],
       date: DateTime.now().subtract(const Duration(days: 3)),
-      onDelete: (callback) => debugPrint("Eliminado compras"),
+      id: '2',
+      type: TransactionType.income,
+      description: 'Papubuelo se nos fue',
     ),
     TransactionViewModel(
       acountNames: ["Cuenta de ahorro"],
@@ -82,7 +87,9 @@ class HomeResources extends GetxController {
       amount: -45.00,
       categoriesName: ["Transporte"],
       date: DateTime.now().subtract(const Duration(days: 5)),
-      onDelete: (callback) => debugPrint("Eliminado transporte"),
+      id: '3',
+      type: TransactionType.transfer,
+      description: 'Papubuelo se nos fue',
     ),
   ];
 
