@@ -1,5 +1,6 @@
 import 'package:finanzas_lite/models/nav_item.dart';
 import 'package:finanzas_lite/screens/add_record_screen/screen.dart';
+import 'package:finanzas_lite/screens/budgets_screen/screen.dart';
 import 'package:finanzas_lite/screens/home_screen/screen.dart';
 import 'package:finanzas_lite/screens/records_screen/screen.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class Navbar extends StatelessWidget {
     NavItem(iconPath: "assets/svgs/navbar/Home.svg", route: "/home"),
     NavItem(iconPath: "assets/svgs/navbar/Wallet.svg", route: "/wallet"),
     NavItem(iconPath: "assets/svgs/navbar/Stats.svg", route: "/stats"),
-    NavItem(iconPath: "assets/svgs/navbar/User.svg", route: "/profile"),
+    NavItem(iconPath: "assets/svgs/navbar/User.svg", route: "/budgets"),
   ];
 
   Navbar({super.key});
@@ -114,8 +115,8 @@ class Navbar extends StatelessWidget {
       // return WalletScreen();
       case '/stats':
         return RecordsScreen();
-      case '/profile':
-      // return ProfileScreen();
+      case '/budgets':
+        return BudgetsScreen();
       default:
         return HomeScreen();
     }

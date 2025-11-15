@@ -8,24 +8,28 @@ class HomeResources extends GetxController {
   // Datos dummies (de prueba) TODO: sacarlos de supabase
   final budgets = <BudgetViewModel>[
     BudgetViewModel(
+      id: '1',
       color: Color(0xFFFFD466),
       name: "Comida",
       currentAmountSpent: 3430,
       limit: 5000,
     ),
     BudgetViewModel(
+      id: '1',
       color: Color(0xFF66FFA3),
       name: "Transporte",
       currentAmountSpent: 430,
       limit: 800,
     ),
     BudgetViewModel(
+      id: '1',
       color: Color(0xFF3DB9FF),
       name: "Salud",
       currentAmountSpent: 3000,
       limit: 5000.25,
     ),
     BudgetViewModel(
+      id: '1',
       color: Color(0xFFFFD466),
       name: "Vida Diaría DEL PEPE Y ETE SECH",
       currentAmountSpent: 2500,
