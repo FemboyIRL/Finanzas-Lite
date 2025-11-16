@@ -1,5 +1,6 @@
 import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
 import 'package:finanzas_lite/screens/budget_details_screen/screen.dart';
+import 'package:finanzas_lite/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 
 class BudgetCard extends StatelessWidget {
@@ -74,46 +75,10 @@ class BudgetCard extends StatelessWidget {
                 // Barra de progreso (usa LayoutBuilder para ancho dinámico)
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final double maxBarWidth = constraints.maxWidth;
-                      final double filledWidth = progressForBar * maxBarWidth;
-
-                      return Stack(
-                        children: [
-                          Container(
-                            height: 8,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade800,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            height: 8,
-                            width: filledWidth,
-                            decoration: BoxDecoration(
-                              color: excedido
-                                  ? Colors.red
-                                  : const Color(0xFF6A66FF),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          // Si rawProgress > 1 se puede dibujar una pequeña marca al final (opcional)
-                          if (rawProgress > 1 && maxBarWidth > 0)
-                            Positioned(
-                              left: maxBarWidth - 1,
-                              top: 0,
-                              bottom: 0,
-                              child: Container(
-                                width: 2,
-                                color: Colors.redAccent.withOpacity(0.8),
-                              ),
-                            ),
-                        ],
-                      );
-                    },
+                  child: ProgressBar(
+                    limit: budget.limit,
+                    spent: budget.currentAmountSpent,
+                    color: budget.color,
                   ),
                 ),
 

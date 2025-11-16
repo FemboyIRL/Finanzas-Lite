@@ -6,6 +6,7 @@ import 'package:finanzas_lite/components/transaction_widget.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/screens/home_screen/state.dart';
 import 'package:finanzas_lite/utils/custom_doughnut_chart.dart';
+import 'package:finanzas_lite/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -317,27 +318,11 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 12),
 
               // Barra de gastos vs restante
-              Stack(
-                children: [
-                  Container(
-                    height: 8,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade800,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                  Container(
-                    height: 8,
-                    width: progreso.clamp(0.0, 1.0) * 250,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF6A66FF),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                ],
+              ProgressBar(
+                limit: total,
+                spent: gasto,
+                color: Colors.deepPurpleAccent,
               ),
-
               Divider(height: 30, color: Colors.grey.withOpacity(0.3)),
 
               SizedBox(

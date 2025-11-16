@@ -4,6 +4,7 @@ import 'package:finanzas_lite/components/transactions_list.dart';
 import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
 import 'package:finanzas_lite/screens/budget_details_screen/state.dart';
 import 'package:finanzas_lite/utils/delegates/header_child_sliver_list.dart';
+import 'package:finanzas_lite/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
@@ -75,9 +76,6 @@ class BudgetDetailsScreen extends StatelessWidget {
   }
 
   Padding _totalBudget() {
-    double total = 14500;
-    double gasto = 12450.30;
-    double progreso = gasto / total;
     return Padding(
       padding: const EdgeInsets.only(right: 20, left: 20),
       child: Column(
@@ -94,25 +92,10 @@ class BudgetDetailsScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-            child: Stack(
-              children: [
-                Container(
-                  height: 8,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade800,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-                Container(
-                  height: 8,
-                  width: progreso.clamp(0.0, 1.0) * 250,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF6A66FF),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ],
+            child: ProgressBar(
+              limit: budget.limit,
+              spent: budget.currentAmountSpent,
+              color: budget.color,
             ),
           ),
           Row(
@@ -220,12 +203,15 @@ class BudgetDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            budget.name,
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: budget.color,
+          Expanded(
+            child: Text(
+              budget.name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: budget.color,
+              ),
             ),
           ),
           SizedBox(

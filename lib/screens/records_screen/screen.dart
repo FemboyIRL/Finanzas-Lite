@@ -50,11 +50,11 @@ class RecordsScreen extends StatelessWidget {
       pinned: true,
       floating: false,
       delegate: HeaderChildSliverList(
-        maxSize: 60,
-        minSize: 60,
+        maxSize: 150,
+        minSize: 150,
         child: Container(
           color: Colors.transparent,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 55),
           child: Material(
             color: Colors.white,
             elevation: 4,
@@ -72,10 +72,7 @@ class RecordsScreen extends StatelessWidget {
                 ),
                 filled: true,
                 fillColor: Colors.black,
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 16,
-                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               ),
             ),
           ),

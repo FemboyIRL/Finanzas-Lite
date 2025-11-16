@@ -2,6 +2,7 @@ import 'package:finanzas_lite/components/budget_card.dart';
 import 'package:finanzas_lite/components/common_scaffold.dart';
 import 'package:finanzas_lite/components/navbar.dart';
 import 'package:finanzas_lite/screens/budgets_screen/state.dart';
+import 'package:finanzas_lite/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
@@ -83,25 +84,10 @@ class BudgetsScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-              child: Stack(
-                children: [
-                  Container(
-                    height: 8,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade800,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                  Container(
-                    height: 8,
-                    width: progreso.clamp(0.0, 1.0) * 250,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF6A66FF),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                ],
+              child: ProgressBar(
+                limit: total,
+                spent: gasto,
+                color: Colors.deepPurpleAccent,
               ),
             ),
             Row(
