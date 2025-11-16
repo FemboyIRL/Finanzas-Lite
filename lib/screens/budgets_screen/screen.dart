@@ -1,7 +1,6 @@
 import 'package:finanzas_lite/components/budget_card.dart';
 import 'package:finanzas_lite/components/common_scaffold.dart';
 import 'package:finanzas_lite/components/navbar.dart';
-import 'package:finanzas_lite/screens/add_record_screen/screen.dart';
 import 'package:finanzas_lite/screens/budgets_screen/state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';

@@ -13,6 +13,7 @@ class HomeResources extends GetxController {
       name: "Comida",
       currentAmountSpent: 3430,
       limit: 5000,
+      transactions: [],
     ),
     BudgetViewModel(
       id: '1',
@@ -20,6 +21,7 @@ class HomeResources extends GetxController {
       name: "Transporte",
       currentAmountSpent: 430,
       limit: 800,
+      transactions: [],
     ),
     BudgetViewModel(
       id: '1',
@@ -27,6 +29,7 @@ class HomeResources extends GetxController {
       name: "Salud",
       currentAmountSpent: 3000,
       limit: 5000.25,
+      transactions: [],
     ),
     BudgetViewModel(
       id: '1',
@@ -34,6 +37,7 @@ class HomeResources extends GetxController {
       name: "Vida Diaría DEL PEPE Y ETE SECH",
       currentAmountSpent: 2500,
       limit: 5000,
+      transactions: [],
     ),
   ];
 

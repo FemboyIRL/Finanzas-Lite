@@ -17,7 +17,7 @@ class HeaderChildSliverList extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return SizedBox.expand(child: child);
+    return ClipRect(child: SizedBox.expand(child: child));
   }
 
   @override
