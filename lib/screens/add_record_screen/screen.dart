@@ -2,8 +2,7 @@ import 'package:finanzas_lite/components/common_scaffold.dart';
 import 'package:finanzas_lite/components/numeric_keyboard.dart';
 import 'package:finanzas_lite/screens/add_record_screen/state.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AddRecordScreen extends StatelessWidget {
@@ -17,7 +16,7 @@ class AddRecordScreen extends StatelessWidget {
         slivers: [
           SliverList(
             delegate: SliverChildListDelegate([
-              _topRow(state),
+              _topRow(state, context),
               _selectRecordType(state),
               _categorySelector(),
               _amountView(state),
@@ -398,7 +397,7 @@ class AddRecordScreen extends StatelessWidget {
     );
   }
 
-  Widget _topRow(AddRecordState state) {
+  Widget _topRow(AddRecordState state, BuildContext context) {
     return Obx(() {
       return Padding(
         padding: const EdgeInsets.only(
@@ -410,20 +409,65 @@ class AddRecordScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // Botón cerrar
             GestureDetector(
               onTap: () => state.onGoBack(),
               child: const Icon(Icons.close, color: Colors.white),
             ),
-            state.selectedRecordType.value == 3
-                ? Row(
-                    children: [
-                      Text(
-                        state.selectedAccount.value.isEmpty
-                            ? "Desde Cuenta"
-                            : state.selectedAccount.value,
-                        style: const TextStyle(
+
+            // Cuenta origen (solo para tipo 3)
+            if (state.selectedRecordType.value == 3)
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => state.onTapSelectAccount(context, 2),
+                  child: Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            state.selectedFromAccount.value == null
+                                ? "Desde Cuenta"
+                                : state.selectedFromAccount.value!.name,
+                            style: const TextStyle(
+                              color: Color(0xFFE3B53C),
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(
+                          Icons.keyboard_arrow_down,
                           color: Color(0xFFE3B53C),
-                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            else
+              const Spacer(), // Espacio flexible cuando no hay cuenta origen
+            // Cuenta destino
+            Expanded(
+              child: GestureDetector(
+                onTap: () => state.onTapSelectAccount(context, 1),
+                child: Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          state.selectedAccount.value == null
+                              ? "${state.selectedRecordType.value == 3 ? "A " : ""}Cuenta"
+                              : state.selectedAccount.value!.name,
+                          style: const TextStyle(
+                            color: Color(0xFFE3B53C),
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
                         ),
                       ),
                       const SizedBox(width: 4),
@@ -432,22 +476,9 @@ class AddRecordScreen extends StatelessWidget {
                         color: Color(0xFFE3B53C),
                       ),
                     ],
-                  )
-                : SizedBox(),
-            Row(
-              children: [
-                Text(
-                  state.selectedAccount.value.isEmpty
-                      ? "${state.selectedRecordType.value == 3 ? "A " : ""}Cuenta"
-                      : state.selectedAccount.value,
-                  style: const TextStyle(
-                    color: Color(0xFFE3B53C),
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(width: 4),
-                const Icon(Icons.keyboard_arrow_down, color: Color(0xFFE3B53C)),
-              ],
+              ),
             ),
           ],
         ),

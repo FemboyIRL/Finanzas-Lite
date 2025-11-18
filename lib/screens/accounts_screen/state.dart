@@ -10,6 +10,7 @@ class AccountsState extends GetxController {
       expirationDate: "08/27",
       lastFourNumbers: "4821",
       owner: "Luis C. Ruiz",
+      type: AccountType.cash,
     ),
     AccountViewModel(
       name: "Cuenta Débito",
@@ -17,6 +18,7 @@ class AccountsState extends GetxController {
       expirationDate: "05/26",
       lastFourNumbers: "9214",
       owner: "Luis C. Ruiz",
+      type: AccountType.cash,
     ),
     AccountViewModel(
       name: "Tarjeta Digital",
@@ -24,6 +26,7 @@ class AccountsState extends GetxController {
       expirationDate: "12/28",
       lastFourNumbers: "1078",
       owner: "Luis C. Ruiz",
+      type: AccountType.cash,
     ),
   ].obs;
 
@@ -41,6 +44,8 @@ class AccountsState extends GetxController {
       expirationDate: expCtrl.text,
       lastFourNumbers: numberCtrl.text,
       owner: ownerCtrl.text,
+      // Es necesario sacar el tipo desde el UI
+      type: AccountType.cash,
     );
 
     accounts.add(newAccount);
