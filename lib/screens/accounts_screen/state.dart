@@ -71,4 +71,10 @@ class AccountsState extends GetxController {
   void onGoBack(BuildContext context) {
     Navigator.of(context).pop();
   }
+
+  @override
+  void onClose() {
+    pageController.dispose();
+    super.onClose();
+  }
 }
