@@ -111,7 +111,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
 
-                  // Botón inferior - CORREGIDO
+                  // Botón inferior
                   Obx(() {
                     final isLast =
                         state.currentPage.value == state.steps.length - 1;

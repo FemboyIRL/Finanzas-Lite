@@ -1,4 +1,5 @@
 import 'package:finanzas_lite/models/nav_item.dart';
+import 'package:finanzas_lite/screens/accounts_screen/screen.dart';
 import 'package:finanzas_lite/screens/add_record_screen/screen.dart';
 import 'package:finanzas_lite/screens/budgets_screen/screen.dart';
 import 'package:finanzas_lite/screens/home_screen/screen.dart';
@@ -10,7 +11,7 @@ import 'package:get/get.dart';
 class Navbar extends StatelessWidget {
   final navItems = <NavItem>[
     NavItem(iconPath: "assets/svgs/navbar/Home.svg", route: "/home"),
-    NavItem(iconPath: "assets/svgs/navbar/Wallet.svg", route: "/wallet"),
+    NavItem(iconPath: "assets/svgs/navbar/Wallet.svg", route: "/accounts"),
     NavItem(iconPath: "assets/svgs/navbar/Stats.svg", route: "/stats"),
     NavItem(iconPath: "assets/svgs/navbar/User.svg", route: "/budgets"),
   ];
@@ -111,8 +112,8 @@ class Navbar extends StatelessWidget {
     switch (route) {
       case '/home':
         return HomeScreen();
-      case '/wallet':
-      // return WalletScreen();
+      case '/accounts':
+        return AccountsScreen();
       case '/stats':
         return RecordsScreen();
       case '/budgets':
