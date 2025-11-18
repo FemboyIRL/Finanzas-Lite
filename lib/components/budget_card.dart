@@ -15,11 +15,6 @@ class BudgetCard extends StatelessWidget {
         ? (budget.currentAmountSpent / budget.limit)
         : (budget.currentAmountSpent > 0 ? double.infinity : 0.0);
 
-    // progressForBar se usa para el ancho de la barra (entre 0 y 1)
-    final double progressForBar = rawProgress.isFinite
-        ? rawProgress.clamp(0.0, 1.0)
-        : 1.0;
-
     final bool excedido = budget.limit > 0
         ? budget.currentAmountSpent > budget.limit
         : budget.currentAmountSpent > 0;

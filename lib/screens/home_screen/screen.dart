@@ -28,11 +28,11 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 15),
                 _totalBalanceCard(),
                 const SizedBox(height: 15),
-                _budgetCard(state),
+                _budgetCard(state, context),
                 const SizedBox(height: 15),
-                _categoriesCard(state),
+                _categoriesCard(state, context),
                 const SizedBox(height: 15),
-                _lastTractions(state),
+                _lastTractions(state, context),
               ]),
             ),
           ),
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _lastTractions(HomeState state) {
+  SizedBox _lastTractions(HomeState state, BuildContext context) {
     return SizedBox(
       child: Column(
         children: [
@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => state.onTapAllTransactions(context),
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(
                   const Color(0x806A66FF).withOpacity(0.2),
@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _categoriesCard(HomeState state) {
+  SizedBox _categoriesCard(HomeState state, BuildContext context) {
     return SizedBox(
       child: Card(
         child: Padding(
@@ -163,7 +163,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => state.onTapAllStats(context),
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(
                         const Color(0x806A66FF).withOpacity(0.2),
@@ -256,12 +256,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _budgetCard(HomeState state) {
+  SizedBox _budgetCard(HomeState state, BuildContext context) {
     //TODO: Pasar estos valores al estado
     // valores de prueba
     double total = 14500;
     double gasto = 12450.30;
-    double progreso = gasto / total; // porcentaje gastado
 
     return SizedBox(
       child: Card(
@@ -283,7 +282,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => state.onTapAllBudgets(context),
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(
                         const Color(0x806A66FF).withOpacity(0.2),

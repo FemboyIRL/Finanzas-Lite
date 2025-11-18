@@ -57,7 +57,6 @@ class BudgetsScreen extends StatelessWidget {
   Padding _totalBudget() {
     double total = 14500;
     double gasto = 12450.30;
-    double progreso = gasto / total;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, right: 20, left: 20),
       child: Container(

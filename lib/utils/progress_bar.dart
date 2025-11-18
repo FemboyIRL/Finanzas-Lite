@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ProgressBar extends StatelessWidget {
   final double limit;
   final double spent;
+  final double barHeight;
   final Color color;
 
   const ProgressBar({
     super.key,
     required this.limit,
+    this.barHeight = 8,
     required this.spent,
     required this.color,
   });
@@ -35,7 +37,7 @@ class ProgressBar extends StatelessWidget {
           children: [
             // Fondo de la barra
             Container(
-              height: 8,
+              height: barHeight,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.grey.shade800,
@@ -46,7 +48,7 @@ class ProgressBar extends StatelessWidget {
             // Barra llenada
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: 8,
+              height: barHeight,
               width: filledWidth,
               decoration: BoxDecoration(
                 color: excedido ? Colors.red : color,
@@ -61,7 +63,7 @@ class ProgressBar extends StatelessWidget {
                 top: 0,
                 bottom: 0,
                 child: Container(
-                  width: 2,
+                  width: barHeight - 6,
                   color: Colors.redAccent.withOpacity(0.8),
                 ),
               ),
