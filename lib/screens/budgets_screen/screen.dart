@@ -77,7 +77,7 @@ class BudgetsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("\$250,000", style: TextStyle(fontSize: 28)),
+                Text("250,000\$", style: TextStyle(fontSize: 28)),
                 Text("%19"),
               ],
             ),
@@ -93,10 +93,10 @@ class BudgetsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "-\$5,450.30 gastado",
+                  "-5,450.30\$ gastado",
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
-                Text("\$4,549.70 disponibles", style: TextStyle(fontSize: 12)),
+                Text("4,549.70\$ disponibles", style: TextStyle(fontSize: 12)),
               ],
             ),
           ],

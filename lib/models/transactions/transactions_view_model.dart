@@ -1,3 +1,5 @@
+import 'package:finanzas_lite/models/accounts/view_model.dart';
+import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:flutter/material.dart';
 
 enum TransactionType { zero, expense, income, transfer }
@@ -34,9 +36,9 @@ class TransactionViewModel {
   final String id;
   final TransactionType type;
   final String description;
-  final List<String> categoriesName;
+  final CategoryViewModel category;
   final Color mainColor;
-  final List<String> acountNames;
+  final AccountViewModel account;
   final String icon;
   final DateTime date;
   final double amount;
@@ -46,11 +48,11 @@ class TransactionViewModel {
     required this.id,
     required this.type,
     required this.description,
-    required this.acountNames,
+    required this.account,
     required this.mainColor,
     required this.icon,
     required this.amount,
-    required this.categoriesName,
+    required this.category,
     required this.date,
   });
 }

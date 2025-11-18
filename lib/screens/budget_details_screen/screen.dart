@@ -84,7 +84,7 @@ class BudgetDetailsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "\$${budget.limit.toStringAsFixed(2)}",
+                "${budget.limit.toStringAsFixed(2)}\$",
                 style: TextStyle(fontSize: 28),
               ),
               Text("%19"),
@@ -102,11 +102,11 @@ class BudgetDetailsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "-\$${budget.currentAmountSpent.toStringAsFixed(2)} gastado",
+                "-${budget.currentAmountSpent.toStringAsFixed(2)}\$ gastado",
                 style: TextStyle(color: Colors.grey, fontSize: 12),
               ),
               Text(
-                "\$${(budget.limit - budget.currentAmountSpent).toStringAsFixed(2)} disponibles",
+                "${(budget.limit - budget.currentAmountSpent).toStringAsFixed(2)}\$ disponibles",
                 style: TextStyle(fontSize: 12),
               ),
             ],

@@ -41,7 +41,7 @@ class CategoryInfoCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "\$${category.currentAmountSpent}",
+                  "${category.currentAmountSpent}\$",
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 12, color: category.color),
                 ),

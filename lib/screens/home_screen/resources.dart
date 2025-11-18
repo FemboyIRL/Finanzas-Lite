@@ -1,6 +1,9 @@
+import 'package:finanzas_lite/models/accounts/view_model.dart';
 import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
+import 'package:finanzas_lite/utils/icons.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -41,62 +44,126 @@ class HomeResources extends GetxController {
     ),
   ];
 
-  final List<CategoryViewModel> categories = [
+  final categories = [
     CategoryViewModel(
       name: "Comida",
-      currentAmountSpent: 3400,
-      color: const Color(0xFF6A66FF),
+      icon: AppIcons.getIconPath(4), // comida.svg
+      color: Colors.orange,
+      currentAmountSpent: 1250.75,
     ),
     CategoryViewModel(
       name: "Transporte",
-      currentAmountSpent: 1200,
-      color: const Color(0xFFFFD466),
+      icon: AppIcons.getIconPath(1), // bus.svg
+      color: Colors.blue,
+      currentAmountSpent: 450.50,
     ),
     CategoryViewModel(
-      name: "Entretenimiento",
-      currentAmountSpent: 800,
-      color: const Color(0xFF66FF99),
+      name: "Compras",
+      icon: AppIcons.getIconPath(11), // shopping.svg
+      color: Colors.purple,
+      currentAmountSpent: 3200.00,
     ),
     CategoryViewModel(
       name: "Salud",
-      currentAmountSpent: 600,
-      color: const Color(0xFFFF6666),
+      icon: AppIcons.getIconPath(5), // face.svg
+      color: Colors.red,
+      currentAmountSpent: 800.25,
+    ),
+    CategoryViewModel(
+      name: "Entretenimiento",
+      icon: AppIcons.getIconPath(9), // palace.svg
+      color: Colors.green,
+      currentAmountSpent: 600.00,
     ),
   ];
 
-  final transactions = [
+  final accounts = [
+    AccountViewModel(
+      name: "Cuenta Principal",
+      owner: "Luis García",
+      expirationDate: "12/25",
+      lastFourNumbers: "4532",
+      type: AccountType.debit,
+      currentAmount: 15420.75,
+    ),
+    AccountViewModel(
+      name: "Tarjeta Crédito",
+      owner: "Luis García",
+      expirationDate: "08/26",
+      lastFourNumbers: "7890",
+      type: AccountType.credit,
+      currentAmount: -3200.50,
+    ),
+    AccountViewModel(
+      name: "Ahorros",
+      owner: "Luis García",
+      expirationDate: "N/A",
+      lastFourNumbers: "1234",
+      type: AccountType.savings,
+      currentAmount: 25300.00,
+    ),
+  ];
+
+  late final transactions = [
     TransactionViewModel(
-      acountNames: ["Cuenta principal"],
-      mainColor: const Color(0xFF6A66FF),
-      icon: "assets/svgs/categoryIcons/comida.svg",
-      amount: 120.50,
-      categoriesName: ["Comida", "Restaurante"],
-      date: DateTime.now().subtract(const Duration(days: 1)),
-      id: '1',
+      id: "1",
       type: TransactionType.expense,
-      description: 'Papubuelo se nos fue',
+      description: "Supermercado La Canasta",
+      category: categories[0], // Comida
+      mainColor: Colors.orange,
+      account: accounts[0], // Cuenta Principal
+      icon: AppIcons.getIconPath(4), // comida.svg
+      date: DateTime(2024, 1, 15, 14, 30),
+      amount: -350.75,
     ),
     TransactionViewModel(
-      acountNames: ["Tarjeta crédito"],
-      mainColor: const Color(0xFFE840D1),
-      icon: "assets/svgs/categoryIcons/maleta.svg",
-      amount: 890.20,
-      categoriesName: ["Compras", "Ropa"],
-      date: DateTime.now().subtract(const Duration(days: 3)),
-      id: '2',
+      id: "2",
+      type: TransactionType.expense,
+      description: "Gasolina Estación Shell",
+      category: categories[1], // Transporte
+      mainColor: Colors.blue,
+      account: accounts[0], // Cuenta Principal
+      icon: AppIcons.getIconPath(2), // car.svg
+      date: DateTime(2024, 1, 14, 10, 15),
+      amount: -200.00,
+    ),
+    TransactionViewModel(
+      id: "3",
       type: TransactionType.income,
-      description: 'Papubuelo se nos fue',
+      description: "Pago de Nómina",
+      category: CategoryViewModel(
+        name: "Salario",
+        icon: AppIcons.getIconPath(3), // cash.svg
+        color: Colors.green,
+        currentAmountSpent: 0,
+      ),
+      mainColor: Colors.green,
+      account: accounts[0], // Cuenta Principal
+      icon: AppIcons.getIconPath(3), // cash.svg
+      date: DateTime(2024, 1, 10, 9, 0),
+      amount: 15000.00,
     ),
     TransactionViewModel(
-      acountNames: ["Cuenta de ahorro"],
-      mainColor: const Color(0xFF4CAF50),
-      icon: "assets/svgs/categoryIcons/bicicleta.svg",
-      amount: -45.00,
-      categoriesName: ["Transporte"],
-      date: DateTime.now().subtract(const Duration(days: 5)),
-      id: '3',
-      type: TransactionType.transfer,
-      description: 'Papubuelo se nos fue',
+      id: "4",
+      type: TransactionType.expense,
+      description: "Zapatos Deportivos",
+      category: categories[2], // Compras
+      mainColor: Colors.purple,
+      account: accounts[1], // Tarjeta Crédito
+      icon: AppIcons.getIconPath(11), // shopping.svg
+      date: DateTime(2024, 1, 12, 16, 45),
+      amount: -1200.00,
+    ),
+    TransactionViewModel(
+      id: "5",
+      type: TransactionType.expense,
+      description: "Cena Restaurante Italiano",
+      category: categories[0], // Comida
+      mainColor: Colors.orange,
+      account: accounts[0], // Cuenta Principal
+      icon: AppIcons.getIconPath(4), // comida.svg
+      date: DateTime(2024, 1, 13, 20, 30),
+      amount: -480.50,
     ),
   ];
 

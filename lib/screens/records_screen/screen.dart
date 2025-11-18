@@ -32,14 +32,23 @@ class RecordsScreen extends StatelessWidget {
           // SearchBar fija (pinned)
           _persistentSearchBar(state),
 
-          Obx(
-            () => SliverPadding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              sliver: TransactionsSliverList(
-                transactions: state.filteredOperations(),
-              ),
-            ),
-          ),
+          state.transactions.isNotEmpty
+              ? Obx(
+                  () => SliverPadding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    sliver: TransactionsSliverList(
+                      transactions: state.filteredOperations(),
+                    ),
+                  ),
+                )
+              : SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text("No has registrado transacciones aún"),
+                    ),
+                  ),
+                ),
         ],
       ),
     );

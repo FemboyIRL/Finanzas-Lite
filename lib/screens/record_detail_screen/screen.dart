@@ -1,5 +1,6 @@
 import 'package:finanzas_lite/components/common_scaffold.dart';
 import 'package:finanzas_lite/components/navbar.dart';
+import 'package:finanzas_lite/models/accounts/view_model.dart';
 import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
 import 'package:finanzas_lite/screens/record_detail_screen/state.dart';
 import 'package:flutter/material.dart';
@@ -26,20 +27,20 @@ class RecordDetailsScreen extends StatelessWidget {
                 _transactionAmountView(),
                 _buildDetailItem(
                   "Cuenta",
-                  "Tarjeta de credito",
-                  "assets/svgs/categoryIcons/bicicleta.svg",
+                  transaction.account.name,
+                  transaction.account.type.icon,
                 ),
                 _buildDetailItem(
                   "Categoría",
-                  "Transporte",
-                  "assets/svgs/categoryIcons/bicicleta.svg",
+                  transaction.category.name,
+                  transaction.category.icon,
                 ),
                 _buildDetailItem(
                   "Fecha & Hora",
                   "${transaction.date.day.toString().padLeft(2, '0')}/"
                       "${transaction.date.month.toString().padLeft(2, '0')}/"
                       "${transaction.date.year} ${transaction.date.hour}: ${transaction.date.minute}",
-                  "assets/svgs/categoryIcons/bicicleta.svg",
+                  "assets/svgs/icon_calendar.svg",
                 ),
                 _notesView(),
                 Padding(
@@ -128,7 +129,7 @@ class RecordDetailsScreen extends StatelessWidget {
         children: [
           Text(transaction.type.name, style: TextStyle(color: Colors.grey)),
           Text(
-            '-\$${transaction.amount.toStringAsFixed(2)}',
+            '${transaction.amount.toStringAsFixed(2)}\$',
             style: TextStyle(fontSize: 50, color: transaction.type.color),
           ),
         ],

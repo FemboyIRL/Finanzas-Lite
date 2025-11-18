@@ -59,7 +59,7 @@ class AccountsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "\$${(state.accounts[state.currentPage.value].currentAmount).toStringAsFixed(2)}",
+                "${(state.accounts[state.currentPage.value].currentAmount).toStringAsFixed(2)}\$",
               ),
             ],
           ),

@@ -58,7 +58,7 @@ class BudgetCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "\$${budget.limit.toStringAsFixed(2)}",
+                      "${budget.limit.toStringAsFixed(2)}\$",
                       style: TextStyle(fontSize: 30),
                     ),
                     Text(

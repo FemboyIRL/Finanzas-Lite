@@ -59,7 +59,7 @@ class TransactionWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    transaction.categoriesName.first,
+                    transaction.category.name,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -67,7 +67,7 @@ class TransactionWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    transaction.acountNames.first,
+                    transaction.account.name,
                     style: const TextStyle(fontSize: 13, color: Colors.grey),
                   ),
                 ],
@@ -79,7 +79,7 @@ class TransactionWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "\$${transaction.amount.toStringAsFixed(2)}",
+                  "${transaction.amount.toStringAsFixed(2)}\$",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 15),
                 _categoriesCard(state, context),
                 const SizedBox(height: 15),
-                _lastTractions(state, context),
+                _lastTransactions(state, context),
               ]),
             ),
           ),
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _lastTractions(HomeState state, BuildContext context) {
+  SizedBox _lastTransactions(HomeState state, BuildContext context) {
     return SizedBox(
       child: Column(
         children: [
@@ -98,22 +98,27 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(
-            height: 250,
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              scrollDirection: Axis.vertical,
-              itemCount: state.transactions.length,
-              itemBuilder: (context, index) {
-                final transaction = state.transactions[index];
-                return Container(
-                  width: 150,
-                  margin: const EdgeInsets.only(bottom: 12),
-                  child: TransactionWidget(transaction: transaction),
-                );
-              },
-            ),
-          ),
+          state.transactions.isNotEmpty
+              ? SizedBox(
+                  height: 250,
+                  child: ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    scrollDirection: Axis.vertical,
+                    itemCount: state.transactions.length,
+                    itemBuilder: (context, index) {
+                      final transaction = state.transactions[index];
+                      return Container(
+                        width: 150,
+                        margin: const EdgeInsets.only(bottom: 12),
+                        child: TransactionWidget(transaction: transaction),
+                      );
+                    },
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Text("No has registrado transacciones aún"),
+                ),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -218,7 +223,7 @@ class HomeScreen extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                           Text(
-                            "\$${state.total.toStringAsFixed(0)}",
+                            "${state.total.toStringAsFixed(2)}\$",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -306,7 +311,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 8),
               Row(
                 children: const [
-                  Text("\$14,500.00", style: TextStyle(fontSize: 25)),
+                  Text("14,500.00\$", style: TextStyle(fontSize: 25)),
                   Text(" restantes", style: TextStyle(fontSize: 15)),
                 ],
               ),
@@ -361,7 +366,7 @@ class HomeScreen extends StatelessWidget {
                 "Balance Total",
                 style: TextStyle(color: Colors.grey, fontSize: 15),
               ),
-              Text("\$26,000.00", style: TextStyle(fontSize: 25)),
+              Text("26,000.00\$", style: TextStyle(fontSize: 25)),
             ],
           ),
         ),
