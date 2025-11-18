@@ -34,7 +34,7 @@ class RecordsScreen extends StatelessWidget {
 
           Obx(
             () => SliverPadding(
-              padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               sliver: TransactionsSliverList(
                 transactions: state.filteredOperations(),
               ),
@@ -50,11 +50,11 @@ class RecordsScreen extends StatelessWidget {
       pinned: true,
       floating: false,
       delegate: HeaderChildSliverList(
-        maxSize: 150,
-        minSize: 150,
+        maxSize: 80,
+        minSize: 80,
         child: Container(
           color: Colors.transparent,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 55),
+          padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
           child: Material(
             color: Colors.white,
             elevation: 4,
