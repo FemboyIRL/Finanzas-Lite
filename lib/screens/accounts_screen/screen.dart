@@ -4,6 +4,7 @@ import 'package:finanzas_lite/components/navbar.dart';
 import 'package:finanzas_lite/screens/accounts_screen/state.dart';
 import 'package:finanzas_lite/utils/accounts_carousel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class AccountsScreen extends StatelessWidget {
@@ -73,7 +74,7 @@ class AccountsScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GetBuilder<AccountsState>(
-        init: AccountsState(),
+        init: Get.put(AccountsState()),
         builder: (state) => AccountsCarousel(state: state),
       ),
     );

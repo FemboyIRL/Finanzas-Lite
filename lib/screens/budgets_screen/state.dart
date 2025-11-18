@@ -1,5 +1,4 @@
 import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
-import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
 

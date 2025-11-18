@@ -8,7 +8,7 @@ class StatisticsState extends GetxController {
     CategoryViewModel(
       name: "Comida",
       icon: 'assets/svgs/categoryIcons/bicicleta.svg',
-      currentAmountSpent: 150000,
+      currentAmountSpent: 1500,
       color: const Color(0xFF6A66FF),
     ),
     CategoryViewModel(

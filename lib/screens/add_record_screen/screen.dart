@@ -18,7 +18,7 @@ class AddRecordScreen extends StatelessWidget {
             delegate: SliverChildListDelegate([
               _topRow(state, context),
               _selectRecordType(state),
-              _categorySelector(),
+              _categorySelector(context, state),
               _amountView(state),
               _descriptionInput(),
               _dateView(),
@@ -148,7 +148,7 @@ class AddRecordScreen extends StatelessWidget {
     );
   }
 
-  Row _categorySelector() {
+  Row _categorySelector(BuildContext context, AddRecordState state) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -178,20 +178,27 @@ class AddRecordScreen extends StatelessWidget {
                 ),
               ),
             ),
-            child: const Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Categoría",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+            child: GestureDetector(
+              onTap: () => state.onTapSelectCategory(context),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(
+                    () => Text(
+                      state.selectedCategory.value == null
+                          ? "Categoría"
+                          : state.selectedCategory.value!.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(width: 6),
-                Icon(Icons.arrow_drop_down, color: Colors.white),
-              ],
+                  SizedBox(width: 6),
+                  Icon(Icons.arrow_drop_down, color: Colors.white),
+                ],
+              ),
             ),
           ),
         ),
