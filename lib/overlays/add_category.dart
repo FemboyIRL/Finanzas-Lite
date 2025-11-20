@@ -1,11 +1,13 @@
 import 'package:finanzas_lite/components/overlay.dart';
-import 'package:finanzas_lite/overlays/select_color_icon.dart';
+import 'package:finanzas_lite/overlays/select_color_icon/select_color_icon.dart';
 import 'package:finanzas_lite/utils/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class AddCategoryController extends GetxController {
+  var selectedColor = Color(0xFF6A66FF).obs;
+  var selectedIcon = 0.obs;
   var categoryName = "Cuenta".obs;
   final nameController = TextEditingController();
 
@@ -46,7 +48,32 @@ class AddCategoryOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     return FullScreenOverlay(
       title: "Agregar Categoría",
-      child: Column(children: [_iconEntry(context), _nameEntry()]),
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(children: [_iconEntry(context), _nameEntry()]),
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF6A66FF),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+              child: const Text(
+                "Agregar Categoría",
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -100,43 +127,49 @@ class AddCategoryOverlay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Icono", style: TextStyle(fontSize: 18)),
-            Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(
-                  50,
-                ), // Opcional: bordes redondeados
-              ),
-              child: Stack(
-                children: [
-                  // Icono principal con fit
-                  Center(
-                    child: SvgPicture.asset(
-                      AppIcons.getIconPath(1),
-                      height: 30, // Tamaño controlado
-                      width: 30,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-
-                  // Círculo pequeño con lápiz
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.1),
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
+            Obx(
+              () => Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: controller.selectedColor.value.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(
+                    50,
+                  ), // Opcional: bordes redondeados
+                ),
+                child: Stack(
+                  children: [
+                    // Icono principal con fit
+                    Center(
+                      child: SvgPicture.asset(
+                        AppIcons.getIconPath(controller.selectedIcon.value),
+                        height: 30, // Tamaño controlado
+                        width: 30,
+                        fit: BoxFit.contain,
+                        colorFilter: ColorFilter.mode(
+                          controller.selectedColor.value,
+                          BlendMode.srcIn,
+                        ),
                       ),
-                      child: Icon(Icons.edit, color: Colors.white, size: 12),
                     ),
-                  ),
-                ],
+
+                    // Círculo pequeño con lápiz
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                        child: Icon(Icons.edit, color: Colors.white, size: 12),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -147,7 +180,16 @@ class AddCategoryOverlay extends StatelessWidget {
 
   void onTapIcon(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => SelectColorAndIconOverlay()),
+      MaterialPageRoute(
+        builder: (context) => SelectColorAndIconOverlay(
+          onSave: (Color color, int iconIdx) => onSaveIconColor(color, iconIdx),
+        ),
+      ),
     );
+  }
+
+  void onSaveIconColor(Color color, int iconIdx) {
+    controller.selectedColor.value = color;
+    controller.selectedIcon.value = iconIdx;
   }
 }
