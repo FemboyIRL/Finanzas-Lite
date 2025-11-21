@@ -140,11 +140,7 @@ class BudgetsScreen extends StatelessWidget {
             width: 40,
             height: 40,
             child: GestureDetector(
-              // onTap: () => Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => const AddRecordScreen(),
-              //   ),
-              // ),
+              onTap: () => state.onTapNewBudget(context),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
