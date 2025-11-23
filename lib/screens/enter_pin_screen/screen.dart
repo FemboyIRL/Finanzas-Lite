@@ -40,7 +40,7 @@ class EnterPinScreen extends StatelessWidget {
                             final length = state.inputText.value.length;
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(4, (index) {
+                              children: List.generate(6, (index) {
                                 return Container(
                                   margin: const EdgeInsets.symmetric(
                                     horizontal: 8,

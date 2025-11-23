@@ -16,6 +16,8 @@ dependencies:
   syncfusion_flutter_charts: ^31.2.5
   intl: ^0.20.2
   delightful_toast: ^1.1.0
+  flutter_dotenv: ^6.0.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +28,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - assets/images/
     - assets/svgs/
     - assets/svgs/categoryIcons/
