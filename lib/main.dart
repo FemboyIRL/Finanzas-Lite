@@ -1,6 +1,4 @@
-import 'package:finanzas_lite/screens/home_screen/screen.dart';
 import 'package:finanzas_lite/screens/login_screen/screen.dart';
-import 'package:finanzas_lite/screens/welcome_screen/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';

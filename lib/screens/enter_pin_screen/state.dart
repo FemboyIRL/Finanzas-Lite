@@ -10,29 +10,40 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class EnterPinState extends GetxController {
   final inputText = "".obs;
   String? PIN;
-  final email = Get.arguments as String;
+  String? userId;
+  var email = "";
 
   @override
   void onInit() async {
     super.onInit();
-    PIN = await getPin();
+
+    final emailFromDb = await SharedPreferencesMethods.getEmail();
+
+    if (emailFromDb != null) {
+      email = emailFromDb;
+    } else {
+      email = Get.arguments as String;
+    }
+
+    await getUserData();
   }
 
-  Future<String?> getPin() async {
+  Future<void> getUserData() async {
     try {
       final supabase = Supabase.instance.client;
 
       final response = await supabase
           .from('user_profiles')
-          .select("pin_code")
+          .select("pin_code, id")
           .eq("email", email)
           .single();
 
       if (response.isEmpty) {
-        return "";
+        return;
       }
 
-      return response["pin_code"];
+      userId = response["id"];
+      PIN = response["pin_code"];
     } catch (e) {
       DelightToastBar(
         autoDismiss: true,
@@ -45,7 +56,7 @@ class EnterPinState extends GetxController {
         ),
         position: DelightSnackbarPosition.top,
       ).show(Get.context!);
-      return "";
+      return;
     }
   }
 
@@ -70,6 +81,7 @@ class EnterPinState extends GetxController {
           position: DelightSnackbarPosition.top,
         ).show(Get.context!);
         await SharedPreferencesMethods.setEmail(email);
+        await SharedPreferencesMethods.setUserId(userId!);
         Navigator.of(
           Get.context!,
         ).push(MaterialPageRoute(builder: (_) => const HomeScreen()));

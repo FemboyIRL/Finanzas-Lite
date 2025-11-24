@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 _topRow(),
                 const SizedBox(height: 15),
-                _totalBalanceCard(),
+                _totalBalanceCard(state),
                 const SizedBox(height: 15),
                 _budgetCard(state, context),
                 const SizedBox(height: 15),
@@ -262,11 +262,6 @@ class HomeScreen extends StatelessWidget {
   }
 
   SizedBox _budgetCard(HomeState state, BuildContext context) {
-    //TODO: Pasar estos valores al estado
-    // valores de prueba
-    double total = 14500;
-    double gasto = 12450.30;
-
     return SizedBox(
       child: Card(
         child: Padding(
@@ -310,21 +305,24 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Row(
-                children: const [
-                  Text("14,500.00\$", style: TextStyle(fontSize: 25)),
+                children: [
+                  Text(
+                    "${state.totalRemaining}\$",
+                    style: TextStyle(fontSize: 25),
+                  ),
                   Text(" restantes", style: TextStyle(fontSize: 15)),
                 ],
               ),
-              const Text(
-                "- \$12,450.30 gastados este mes",
+              Text(
+                "- \$${state.totalSpent} gastados este mes",
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               const SizedBox(height: 12),
 
               // Barra de gastos vs restante
               ProgressBar(
-                limit: total,
-                spent: gasto,
+                limit: state.total,
+                spent: state.totalSpent,
                 color: Colors.deepPurpleAccent,
               ),
               Divider(height: 30, color: Colors.grey.withOpacity(0.3)),
@@ -351,7 +349,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _totalBalanceCard() {
+  SizedBox _totalBalanceCard(HomeState state) {
     return SizedBox(
       width: double.infinity,
       height: 100,
@@ -366,7 +364,7 @@ class HomeScreen extends StatelessWidget {
                 "Balance Total",
                 style: TextStyle(color: Colors.grey, fontSize: 15),
               ),
-              Text("26,000.00\$", style: TextStyle(fontSize: 25)),
+              Text("${state.total}\$", style: TextStyle(fontSize: 25)),
             ],
           ),
         ),

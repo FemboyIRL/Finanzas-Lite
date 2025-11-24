@@ -20,8 +20,13 @@ class SelectCategoryOverlay extends StatelessWidget {
       title: 'Seleccionar Categoría',
       child: Column(
         children: [
-          ...categories.map((cat) => _buildCategoryEntry(cat)).toList(),
-
+          Expanded(
+            child: ListView(
+              children: categories
+                  .map((cat) => _buildCategoryEntry(cat))
+                  .toList(),
+            ),
+          ),
           const SizedBox(height: 10),
 
           _buildAddNewCategory(context),

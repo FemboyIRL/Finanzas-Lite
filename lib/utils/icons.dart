@@ -14,6 +14,17 @@ class AppIcons {
     11: 'assets/svgs/categoryIcons/shopping.svg',
   };
 
+  // Obtener el índice basado en el path
+  static int getIconIndex(String iconPath) {
+    return availableIcons.entries
+        .firstWhere(
+          (e) => e.value == iconPath,
+          orElse: () => const MapEntry(7, 'assets/svgs/categoryIcons/Icon.svg'),
+        )
+        .key;
+  }
+
+  // Obtener el path basado en el índice
   static String getIconPath(int iconIndex) {
     return availableIcons[iconIndex] ?? availableIcons[7]!;
   }

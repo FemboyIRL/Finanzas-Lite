@@ -1,34 +1,10 @@
 import 'package:finanzas_lite/models/accounts/view_model.dart';
+import 'package:finanzas_lite/utils/shared_preferences.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AccountsState extends GetxController {
-  final accounts = [
-    AccountViewModel(
-      name: "Tarjeta Oro",
-      currentAmount: 12500.75,
-      expirationDate: "08/27",
-      lastFourNumbers: "4821",
-      owner: "Luis C. Ruiz",
-      type: AccountType.cash,
-    ),
-    AccountViewModel(
-      name: "Cuenta Débito",
-      currentAmount: 3540.20,
-      expirationDate: "05/26",
-      lastFourNumbers: "9214",
-      owner: "Luis C. Ruiz",
-      type: AccountType.cash,
-    ),
-    AccountViewModel(
-      name: "Tarjeta Digital",
-      currentAmount: 820.90,
-      expirationDate: "12/28",
-      lastFourNumbers: "1078",
-      owner: "Luis C. Ruiz",
-      type: AccountType.cash,
-    ),
-  ].obs;
+  final accounts = [].obs;
 
   // Controladores del formulario
   final nameCtrl = TextEditingController();
@@ -37,8 +13,12 @@ class AccountsState extends GetxController {
   final ownerCtrl = TextEditingController();
   final amountCtrl = TextEditingController();
 
-  void addAccount() {
+  void addAccount() async {
+    final userId = await SharedPreferencesMethods.getUserId();
+
     final newAccount = AccountViewModel(
+      id: '0',
+      userId: userId!,
       name: nameCtrl.text,
       currentAmount: double.tryParse(amountCtrl.text) ?? 0,
       expirationDate: expCtrl.text,

@@ -20,4 +20,14 @@ abstract class SharedPreferencesMethods {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString("pin");
   }
+
+  static Future<void> setUserId(String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("user_id", userId);
+  }
+
+  static Future<String?> getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString("user_id");
+  }
 }

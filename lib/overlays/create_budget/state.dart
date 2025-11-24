@@ -1,6 +1,5 @@
 import 'package:finanzas_lite/models/accounts/view_model.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
-import 'package:finanzas_lite/overlays/select_categories/screen.dart';
 import 'package:finanzas_lite/overlays/select_color/overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
