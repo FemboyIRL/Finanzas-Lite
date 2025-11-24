@@ -4,6 +4,7 @@ import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/overlays/create_budget/state.dart';
 import 'package:finanzas_lite/overlays/select_accounts/overlay.dart';
 import 'package:finanzas_lite/overlays/select_categories/screen.dart';
+import 'package:finanzas_lite/utils/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -52,7 +53,7 @@ class CreateBudgetOverlay extends StatelessWidget {
                       _buildIconEntry(
                         context,
                         "Cuenta",
-                        accounts[0].type.icon,
+                        AccountType.cash.icon,
                         (context) => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => SelectAccountsOverlay(
@@ -72,7 +73,7 @@ class CreateBudgetOverlay extends StatelessWidget {
                       _buildIconEntry(
                         context,
                         "Categorías",
-                        categories[0].icon,
+                        AppIcons.getIconPath(0),
                         (context) => {
                           Navigator.of(context).push(
                             MaterialPageRoute(

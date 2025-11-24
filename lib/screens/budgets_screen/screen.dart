@@ -21,31 +21,45 @@ class BudgetsScreen extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 _topRow(state, context),
-                _totalBudget(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 20,
-                  ),
-                  child: SizedBox(
-                    height: 500,
-                    child: ListView.builder(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 10,
+                _totalBudget(state),
+
+                state.budgets.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 20,
+                        ),
+                        child: SizedBox(
+                          height: 500,
+                          child: ListView.builder(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 10,
+                            ),
+                            scrollDirection: Axis.vertical,
+                            itemCount: state.budgets.length,
+                            itemBuilder: (context, index) {
+                              final transaction = state.budgets[index];
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 12),
+                                child: BudgetCard(budget: transaction),
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 50,
+                        ),
+                        child: Center(
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            "Registra tu primer presupuesto para empezar a ahorrar",
+                          ),
+                        ),
                       ),
-                      scrollDirection: Axis.vertical,
-                      itemCount: state.budgets.length,
-                      itemBuilder: (context, index) {
-                        final transaction = state.budgets[index];
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          child: BudgetCard(budget: transaction),
-                        );
-                      },
-                    ),
-                  ),
-                ),
               ]),
             ),
           ),
@@ -54,9 +68,7 @@ class BudgetsScreen extends StatelessWidget {
     );
   }
 
-  Padding _totalBudget() {
-    double total = 14500;
-    double gasto = 12450.30;
+  Padding _totalBudget(BudgetsState state) {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, right: 20, left: 20),
       child: Container(
@@ -77,15 +89,15 @@ class BudgetsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("250,000\$", style: TextStyle(fontSize: 28)),
-                Text("%19"),
+                Text("${state.balance}\$", style: TextStyle(fontSize: 28)),
+                Text("${state.percentSpent.toStringAsFixed(0)}%"),
               ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
               child: ProgressBar(
-                limit: total,
-                spent: gasto,
+                limit: state.balance,
+                spent: state.totalSpent,
                 color: Colors.deepPurpleAccent,
               ),
             ),
@@ -93,10 +105,13 @@ class BudgetsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "-5,450.30\$ gastado",
+                  "-${state.totalSpent}\$ gastado",
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
-                Text("4,549.70\$ disponibles", style: TextStyle(fontSize: 12)),
+                Text(
+                  "${state.totalRemaining}\$ disponibles",
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ],

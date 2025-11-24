@@ -5,6 +5,7 @@ import 'package:finanzas_lite/utils/color_helper.dart';
 
 class BudgetViewModel {
   final String id;
+  final String userId;
   final Color color;
   final String name;
   final double limit;
@@ -13,6 +14,7 @@ class BudgetViewModel {
 
   const BudgetViewModel({
     required this.id,
+    required this.userId,
     required this.color,
     required this.name,
     required this.currentAmountSpent,
@@ -25,13 +27,13 @@ class BudgetViewModel {
   // ======================
   factory BudgetViewModel.fromJson(Map<String, dynamic> json) {
     return BudgetViewModel(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      color: ColorHelper.colorFromHex(json['color_hex'] ?? '#000000'),
-      limit: double.tryParse(json['limit_amount']?.toString() ?? '0') ?? 0,
-      currentAmountSpent:
-          double.tryParse(json['current_amount_spent']?.toString() ?? '0') ?? 0,
-      transactions: (json['transactions'] as List<dynamic>? ?? [])
+      id: json['id'],
+      userId: json['user_id'],
+      name: json['name'],
+      color: ColorHelper.colorFromHex(json['color_hex']),
+      limit: double.parse(json['limit_amount'].toString()),
+      currentAmountSpent: double.parse(json['current_amount_spent'].toString()),
+      transactions: (json['transactions'] as List<dynamic>)
           .map((e) => TransactionViewModel.fromJson(e))
           .toList(),
     );

@@ -23,7 +23,7 @@ class AccountsScreen extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 _topRow(state, context),
                 _divider(),
-                _cardView(),
+                state.accounts.isNotEmpty ? _cardView() : SizedBox(),
                 _balanceView(state),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -62,12 +62,14 @@ class AccountsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "${state.accounts.isNotEmpty ? (state.accounts[state.currentPage.value].currentAmount).toStringAsFixed(2) : ""}\$",
+                "${state.accounts.isNotEmpty ? "${(state.accounts[state.currentPage.value].currentAmount).toStringAsFixed(2)}\$" : ""}",
               ),
             ],
           ),
         ),
-        Center(child: Text("Balance Disponible")),
+        Center(
+          child: Text(state.accounts.isNotEmpty ? "Balance Disponible" : ""),
+        ),
       ],
     );
   }
