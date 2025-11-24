@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:finanzas_lite/models/accounts/view_model.dart';
 import 'package:finanzas_lite/screens/accounts_screen/state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -75,6 +76,48 @@ class AddAccountCard extends StatelessWidget {
                       controller: state.amountCtrl,
                       label: "Monto inicial",
                       keyboard: TextInputType.number,
+                    ),
+                    const SizedBox(height: 15),
+
+                    DropdownButtonFormField<AccountType>(
+                      value: state.selectedType,
+                      dropdownColor: Colors.black87,
+                      decoration: InputDecoration(
+                        labelText: "Tipo de cuenta",
+                        labelStyle: TextStyle(
+                          color: Colors.white.withOpacity(0.8),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(0.07),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 16,
+                        ),
+                      ),
+                      iconEnabledColor: Colors.white,
+                      style: const TextStyle(color: Colors.white),
+                      items: AccountType.values
+                          .where((type) => type != AccountType.zero)
+                          .map((type) {
+                            return DropdownMenuItem(
+                              value: type,
+                              child: Text(
+                                type.name,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            );
+                          })
+                          .toList(),
+
+                      onChanged: (value) {
+                        state.selectedType = value!;
+                        state.update();
+                      },
+                      validator: (v) => v == null ? "Seleccione un tipo" : null,
                     ),
 
                     const SizedBox(height: 30),

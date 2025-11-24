@@ -33,6 +33,10 @@ class SelectCategoriesOverlay extends StatelessWidget {
 
             const SizedBox(height: 25),
 
+            _buildAddNewCategory(context, state),
+
+            const SizedBox(height: 25),
+
             // Botón Guardar
             SizedBox(
               width: double.infinity,
@@ -56,6 +60,36 @@ class SelectCategoriesOverlay extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildAddNewCategory(
+    BuildContext context,
+    SelectCategoriesState state,
+  ) {
+    return GestureDetector(
+      onTap: () => state.onTopAddCategory(context),
+      child: Row(
+        children: [
+          Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Icon(Icons.add, size: 30, color: Colors.white),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            "Agregar nueva categoría",
+            style: const TextStyle(fontSize: 19, color: Colors.white),
+          ),
+        ],
       ),
     );
   }

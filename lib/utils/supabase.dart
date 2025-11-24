@@ -52,8 +52,6 @@ class SupabaseHelper {
           .eq("user_id", userId)
           .order('created_at', ascending: true);
 
-      print(data);
-
       return data.map((e) => CategoryViewModel.fromJson(e)).toList();
     } catch (e) {
       print("Error fetching categories: $e");
@@ -71,6 +69,8 @@ class SupabaseHelper {
           .select()
           .eq("user_id", userId)
           .order('created_at', ascending: false);
+
+      print(data);
 
       return data.map((e) => AccountViewModel.fromJson(e)).toList();
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'package:finanzas_lite/components/overlay.dart';
 import 'package:finanzas_lite/models/accounts/view_model.dart';
 import 'package:finanzas_lite/overlays/select_accounts/state.dart';
+import 'package:finanzas_lite/screens/accounts_screen/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/state_manager.dart';
@@ -33,6 +34,10 @@ class SelectAccountsOverlay extends StatelessWidget {
 
             const SizedBox(height: 25),
 
+            _buildAddNewAccount(context),
+
+            const SizedBox(height: 25),
+
             // Botón Guardar
             SizedBox(
               width: double.infinity,
@@ -56,6 +61,35 @@ class SelectAccountsOverlay extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildAddNewAccount(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(
+        context,
+      ).push(MaterialPageRoute(builder: (context) => const AccountsScreen())),
+      child: Row(
+        children: [
+          Container(
+            height: 50,
+            width: 60,
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Icon(Icons.add, size: 30, color: Colors.white),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            "Agregar nueva cuenta",
+            style: const TextStyle(fontSize: 19, color: Colors.white),
+          ),
+        ],
       ),
     );
   }

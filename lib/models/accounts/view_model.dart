@@ -16,6 +16,21 @@ extension AccountTypeExtension on AccountType {
     }
   }
 
+  String get name {
+    switch (this) {
+      case AccountType.cash:
+        return "Efectivo";
+      case AccountType.credit:
+        return "Crédito";
+      case AccountType.debit:
+        return "Débito";
+      case AccountType.savings:
+        return "Ahorro";
+      case AccountType.zero:
+        return "";
+    }
+  }
+
   String get icon {
     switch (this) {
       case AccountType.zero:
