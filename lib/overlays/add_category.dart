@@ -1,6 +1,12 @@
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:finanzas_lite/components/overlay.dart';
 import 'package:finanzas_lite/overlays/select_color_icon/select_color_icon.dart';
+import 'package:finanzas_lite/utils/color_helper.dart';
 import 'package:finanzas_lite/utils/icons.dart';
+import 'package:finanzas_lite/utils/shared_preferences.dart';
+import 'package:finanzas_lite/utils/supabase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -10,6 +16,69 @@ class AddCategoryController extends GetxController {
   var selectedIcon = 0.obs;
   var categoryName = "Cuenta".obs;
   final nameController = TextEditingController();
+  final supabase = SupabaseHelper();
+
+  void addCategory() async {
+    final name = nameController.text.trim();
+    final userId = await SharedPreferencesMethods.getUserId();
+
+    if (name.isEmpty) {
+      DelightToastBar(
+        autoDismiss: true,
+        builder: (context) => const ToastCard(
+          leading: Icon(Icons.error_outline, size: 28, color: Colors.red),
+          title: Text(
+            "Error: El nombre está vacio",
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+          ),
+        ),
+        position: DelightSnackbarPosition.top,
+      ).show(Get.context!);
+      return;
+    }
+
+    final categoryMap = {
+      "user_id": userId,
+      "name": name,
+      "icon_index": selectedIcon.value,
+      "color_hex": ColorHelper.colorToHex(selectedColor.value),
+      "amount_spent": 0,
+    };
+
+    try {
+      await supabase.supabase.from("categories").insert(categoryMap);
+      DelightToastBar(
+        autoDismiss: true,
+        builder: (context) => const ToastCard(
+          leading: Icon(Icons.check_circle, size: 28, color: Colors.green),
+          title: Text(
+            "Categoría agregada exitosamente",
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+          ),
+        ),
+        position: DelightSnackbarPosition.top,
+      ).show(Get.context!);
+
+      selectedColor = Color(0xFF6A66FF).obs;
+      selectedIcon = 0.obs;
+      categoryName = "Cuenta".obs;
+
+      nameController.clear();
+      Navigator.of(Get.context!).pop();
+    } catch (e) {
+      DelightToastBar(
+        autoDismiss: true,
+        builder: (context) => const ToastCard(
+          leading: Icon(Icons.error_outline, size: 28, color: Colors.red),
+          title: Text(
+            "Error al agregar la categoría",
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+          ),
+        ),
+        position: DelightSnackbarPosition.top,
+      ).show(Get.context!);
+    }
+  }
 
   void editName() {
     nameController.text = categoryName.value;
@@ -56,9 +125,7 @@ class AddCategoryOverlay extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => controller.addCategory(),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF6A66FF),
                 padding: const EdgeInsets.symmetric(vertical: 14),

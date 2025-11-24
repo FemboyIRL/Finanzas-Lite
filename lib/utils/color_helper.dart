@@ -10,6 +10,6 @@ class ColorHelper {
   }
 
   static String colorToHex(Color color) {
-    return '#${color.value.toRadixString(16).substring(2)}';
+    return '0xFF${color.value.toRadixString(16).substring(2)}';
   }
 }
