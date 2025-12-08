@@ -1,5 +1,5 @@
 import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
-import 'package:finanzas_lite/overlays/budgets_menu_overlay.dart';
+import 'package:finanzas_lite/overlays/budget_menu_overlay/budgets_menu_overlay.dart';
 import 'package:finanzas_lite/screens/budget_details_screen/screen.dart';
 import 'package:finanzas_lite/utils/progress_bar.dart';
 import 'package:flutter/material.dart';

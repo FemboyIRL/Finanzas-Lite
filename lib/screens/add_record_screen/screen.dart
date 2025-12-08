@@ -20,7 +20,7 @@ class AddRecordScreen extends StatelessWidget {
               _selectRecordType(state),
               _categorySelector(context, state),
               _amountView(state),
-              _descriptionInput(),
+              _descriptionInput(state),
               _dateView(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50),
@@ -68,10 +68,11 @@ class AddRecordScreen extends StatelessWidget {
     );
   }
 
-  Padding _descriptionInput() {
+  Padding _descriptionInput(AddRecordState state) {
     return Padding(
       padding: const EdgeInsets.only(right: 25, left: 25, bottom: 25, top: 10),
       child: TextField(
+        controller: state.descriptionController,
         decoration: InputDecoration(
           hintText: 'Descripción',
           hintStyle: const TextStyle(
@@ -118,15 +119,15 @@ class AddRecordScreen extends StatelessWidget {
             Color color;
 
             switch (state.selectedRecordType.value) {
-              case 1: // Ingreso
+              case "income": // Ingreso
                 icon = Icons.add;
                 color = Colors.greenAccent;
                 break;
-              case 2: // Gasto
+              case "expense": // Gasto
                 icon = Icons.remove;
                 color = Colors.redAccent;
                 break;
-              case 3: // Transferencia
+              case "transfer": // Transferencia
                 icon = Icons.sync_alt;
                 color = Colors.orangeAccent;
                 break;
@@ -135,7 +136,10 @@ class AddRecordScreen extends StatelessWidget {
                 color = Colors.grey;
             }
 
-            return Icon(icon, size: 50, color: color);
+            return GestureDetector(
+              onTap: () => state.onTapAddTransaction(),
+              child: Icon(icon, size: 50, color: color),
+            );
           }),
           Obx(
             () => Text(
@@ -214,7 +218,7 @@ class AddRecordScreen extends StatelessWidget {
           // BOTÓN 1
           Expanded(
             child: Obx(() {
-              final isSelected = state.selectedRecordType.value == 1;
+              final isSelected = state.selectedRecordType.value == "income";
               return AnimatedScale(
                 duration: const Duration(milliseconds: 200),
                 scale: isSelected ? 1.05 : 1.0,
@@ -250,7 +254,7 @@ class AddRecordScreen extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => state.changeSelectedRecordType(1),
+                      onTap: () => state.changeSelectedRecordType("income"),
                       child: SizedBox(
                         height: 45,
                         child: Center(
@@ -277,7 +281,7 @@ class AddRecordScreen extends StatelessWidget {
           // BOTÓN 2
           Expanded(
             child: Obx(() {
-              final isSelected = state.selectedRecordType.value == 2;
+              final isSelected = state.selectedRecordType.value == "expense";
               return AnimatedScale(
                 duration: const Duration(milliseconds: 200),
                 scale: isSelected ? 1.05 : 1.0,
@@ -313,7 +317,7 @@ class AddRecordScreen extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => state.changeSelectedRecordType(2),
+                      onTap: () => state.changeSelectedRecordType("expense"),
                       child: SizedBox(
                         height: 45,
                         child: Center(
@@ -340,7 +344,7 @@ class AddRecordScreen extends StatelessWidget {
           // BOTÓN 3
           Expanded(
             child: Obx(() {
-              final isSelected = state.selectedRecordType.value == 3;
+              final isSelected = state.selectedRecordType.value == "transfer";
               return AnimatedScale(
                 duration: const Duration(milliseconds: 200),
                 scale: isSelected ? 1.05 : 1.0,
@@ -376,7 +380,7 @@ class AddRecordScreen extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => state.changeSelectedRecordType(3),
+                      onTap: () => state.changeSelectedRecordType("transfer"),
                       child: SizedBox(
                         height: 45,
                         child: Center(

@@ -23,21 +23,95 @@ class SupabaseHelper {
     }
   }
 
-  // ========================
-  // FETCH BUDGETS
-  // ========================
   Future<List<BudgetViewModel>> fetchBudgets() async {
     try {
-      final data = await supabase
-          .from('budgets')
-          .select()
-          .eq("user_id", userId)
-          .order('created_at', ascending: false);
+      print('=== STARTING BUDGET FETCH ===');
 
-      return data.map((e) => BudgetViewModel.fromJson(e)).toList();
-    } catch (e) {
-      print("Error fetching budgets: $e");
+      final data = await supabase
+          .from("budgets")
+          .select("""
+          *,
+          budget_categories (
+            category_id,
+            categories (*)
+          ),
+          budget_accounts (
+            account_id,
+            accounts (*)
+          )
+        """)
+          .eq("user_id", userId)
+          .order("created_at", ascending: false);
+
+      final budgets = <BudgetViewModel>[];
+
+      for (var i = 0; i < data.length; i++) {
+        try {
+          final budget = BudgetViewModel.fromJson(data[i]);
+          budgets.add(budget);
+        } catch (e, stackTrace) {
+          continue;
+        }
+      }
+
+      print('\n=== FETCHING TRANSACTIONS FOR BUDGETS ===');
+
+      for (final budget in budgets) {
+        try {
+          final categoryIds = budget.categories.map((c) => c.id).toList();
+          final accountIds = budget.accounts.map((a) => a.id).toList();
+
+          if (categoryIds.isEmpty || accountIds.isEmpty) {
+            budget.transactions = [];
+            budget.currentAmountSpent = 0;
+            continue;
+          }
+
+          final txData = await supabase
+              .from("transactions")
+              .select("""
+              *,
+              categories:category_id (*),
+              accounts:account_id (*)
+            """)
+              .inFilter("category_id", categoryIds)
+              .inFilter("account_id", accountIds)
+              .order("transaction_date", ascending: false);
+
+          final transactions = <TransactionViewModel>[];
+
+          for (var txJson in txData) {
+            final transaction = TransactionViewModel.fromJson(txJson);
+            transactions.add(transaction);
+          }
+
+          budget.transactions = transactions;
+          budget.recalculateAmountSpent();
+        } catch (e) {
+          budget.transactions = [];
+          budget.currentAmountSpent = 0;
+        }
+      }
+
+      print('\n=== BUDGET FETCH COMPLETE ===');
+      print('Total budgets loaded: ${budgets.length}');
+
+      return budgets;
+    } catch (e, stackTrace) {
+      print("=== ERROR IN fetchBudgets ===");
+      print("Error: $e");
+      print("Stack trace: $stackTrace");
       return [];
+    }
+  }
+
+  // Delete Budget
+
+  Future<void> deleteBudget(String id) async {
+    try {
+      await supabase.from("budgets").delete().eq("id", id);
+    } catch (e) {
+      print("error deleting budget $e");
     }
   }
 
@@ -70,8 +144,6 @@ class SupabaseHelper {
           .eq("user_id", userId)
           .order('created_at', ascending: false);
 
-      print(data);
-
       return data.map((e) => AccountViewModel.fromJson(e)).toList();
     } catch (e) {
       print("Error fetching accounts: $e");
@@ -86,7 +158,13 @@ class SupabaseHelper {
     try {
       final data = await supabase
           .from('transactions')
-          .select()
+          .select("""
+          *,
+          categories:category_id (*),
+          accounts:account_id (*),
+          from_accounts:from_account_id (*),
+          to_accounts:to_account_id (*)
+        """)
           .eq("user_id", userId)
           .order('transaction_date', ascending: false);
 

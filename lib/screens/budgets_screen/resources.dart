@@ -1,12 +1,15 @@
 import 'package:finanzas_lite/models/accounts/view_model.dart';
 import 'package:finanzas_lite/models/budgets/budget_view_model.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
+import 'package:finanzas_lite/utils/supabase.dart';
 import 'package:get/get.dart';
 
 class BudgetsResources extends GetxController {
   final budgets = <BudgetViewModel>[];
   final accounts = <AccountViewModel>[].obs;
   final categories = <CategoryViewModel>[];
+
+  final supabase = SupabaseHelper();
 
   late double balance = budgets.fold(0, (sum, b) => sum + b.limit);
 

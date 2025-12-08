@@ -27,8 +27,5 @@ class HomeResources extends GetxController {
 
   late double totalRemaining = totalSpent - balance;
 
-  late double total = categories.fold(
-    0,
-    (sum, c) => sum + c.currentAmountSpent,
-  );
+  late double total = 0;
 }

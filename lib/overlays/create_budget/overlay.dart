@@ -101,9 +101,7 @@ class CreateBudgetOverlay extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: () => state.onCreateBudget(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF6A66FF),
                   padding: const EdgeInsets.symmetric(vertical: 14),

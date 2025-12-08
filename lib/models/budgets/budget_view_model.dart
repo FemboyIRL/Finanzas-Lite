@@ -1,55 +1,58 @@
 import 'dart:ui';
 
+import 'package:finanzas_lite/models/accounts/view_model.dart';
+import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
-import 'package:finanzas_lite/utils/color_helper.dart';
 
 class BudgetViewModel {
   final String id;
   final String userId;
   final Color color;
+  final String month;
   final String name;
   final double limit;
-  final double currentAmountSpent;
-  final List<TransactionViewModel> transactions;
+  double currentAmountSpent;
+  final List<CategoryViewModel> categories;
+  final List<AccountViewModel> accounts;
+  List<TransactionViewModel> transactions;
 
-  const BudgetViewModel({
+  BudgetViewModel({
     required this.id,
     required this.userId,
     required this.color,
     required this.name,
+    required this.month,
     required this.currentAmountSpent,
     required this.limit,
     required this.transactions,
+    required this.categories,
+    required this.accounts,
   });
 
-  // ======================
-  //       FROM JSON
-  // ======================
   factory BudgetViewModel.fromJson(Map<String, dynamic> json) {
+    final categories = (json['budget_categories'] as List<dynamic>)
+        .map((e) => CategoryViewModel.fromJson(e["categories"]))
+        .toList();
+
+    final accounts = (json['budget_accounts'] as List<dynamic>)
+        .map((e) => AccountViewModel.fromJson(e["accounts"]))
+        .toList();
+
     return BudgetViewModel(
-      id: json['id'],
-      userId: json['user_id'],
-      name: json['name'],
-      color: ColorHelper.colorFromHex(json['color_hex']),
+      id: json['id'] as String,
+      userId: json['user_id'] as String,
+      name: json['name'] as String,
+      month: json['month'] as String,
+      color: Color(int.parse(json['color_hex'])),
       limit: double.parse(json['limit_amount'].toString()),
-      currentAmountSpent: double.parse(json['current_amount_spent'].toString()),
-      transactions: (json['transactions'] as List<dynamic>)
-          .map((e) => TransactionViewModel.fromJson(e))
-          .toList(),
+      categories: categories,
+      accounts: accounts,
+      transactions: [], // se llena después
+      currentAmountSpent: 0.0, // se recalcula después
     );
   }
 
-  // ======================
-  //         TO JSON
-  // ======================
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'color_hex': ColorHelper.colorToHex(color),
-      'limit_amount': limit,
-      'current_amount_spent': currentAmountSpent,
-      'transactions': transactions.map((e) => e.toJson()).toList(),
-    };
+  void recalculateAmountSpent() {
+    currentAmountSpent = transactions.fold(0.0, (sum, t) => sum + t.amount);
   }
 }

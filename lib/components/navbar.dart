@@ -50,7 +50,7 @@ class Navbar extends StatelessWidget {
                 width: 50,
                 height: 50,
                 child: GestureDetector(
-                  onTap: () => Navigator.of(Get.context!).push(
+                  onTap: () => Navigator.of(Get.context!).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => const AddRecordScreen(),
                     ),

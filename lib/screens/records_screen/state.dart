@@ -1,8 +1,20 @@
 import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
+import 'package:finanzas_lite/utils/supabase.dart';
 import 'package:get/get.dart';
 
 class RecordsState extends GetxController {
   final transactions = <TransactionViewModel>[];
+  final supabase = SupabaseHelper();
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await supabase.init();
+
+    transactions.addAll(await supabase.fetchTransactions());
+
+    update();
+  }
 
   final searchValue = "".obs;
 

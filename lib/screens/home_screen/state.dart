@@ -13,6 +13,8 @@ class HomeState extends HomeResources {
     budgets.addAll(await supabase.fetchBudgets());
     transactions.addAll(await supabase.fetchTransactions());
     categories.addAll(await supabase.fetchCategories());
+
+    total = categories.fold(0, (sum, c) => sum + c.currentAmountSpent);
     update();
   }
 
