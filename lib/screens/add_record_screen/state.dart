@@ -7,6 +7,7 @@ import 'package:finanzas_lite/screens/accounts_screen/screen.dart';
 import 'package:finanzas_lite/overlays/select_account.dart';
 import 'package:finanzas_lite/overlays/select_category.dart';
 import 'package:finanzas_lite/screens/add_record_screen/resources.dart';
+import 'package:finanzas_lite/screens/home_screen/screen.dart';
 import 'package:finanzas_lite/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,17 @@ class AddRecordState extends AddRecordResources {
     super.onInit();
     await supabase.init();
     await fetchData();
+  }
+
+  @override
+  void onClose() {
+    selectedAccount.close();
+    selectedCategory.close();
+    selectedFromAccount.close();
+    selectedRecordType.close();
+    inputText.value = "0";
+    descriptionController.clear();
+    super.onClose();
   }
 
   Future<void> fetchData() async {
@@ -32,8 +44,10 @@ class AddRecordState extends AddRecordResources {
     selectedRecordType.value = type;
   }
 
-  void onGoBack() {
-    Navigator.of(Get.context!).pop();
+  void onGoBack(BuildContext context) {
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
   void onTapSelectAccount(BuildContext context, int selectedOption) {
@@ -66,6 +80,21 @@ class AddRecordState extends AddRecordResources {
   void onTapAddTransaction() async {
     final userId = await SharedPreferencesMethods.getUserId();
     final description = descriptionController.text.trim();
+
+    if (selectedCategory.value == null) {
+      DelightToastBar(
+        autoDismiss: true,
+        builder: (context) => const ToastCard(
+          leading: Icon(Icons.error_outline, size: 28, color: Colors.red),
+          title: Text(
+            "Error: selecciona una categoría",
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+          ),
+        ),
+        position: DelightSnackbarPosition.top,
+      ).show(Get.context!);
+      return;
+    }
 
     if (selectedAccount.value == null) {
       DelightToastBar(
@@ -141,8 +170,7 @@ class AddRecordState extends AddRecordResources {
         ),
         position: DelightSnackbarPosition.top,
       ).show(Get.context!);
-
-      Navigator.of(Get.context!).pop();
+      onGoBack(Get.context!);
     } catch (e) {
       DelightToastBar(
         autoDismiss: true,

@@ -4,6 +4,7 @@ import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/overlays/create_budget/state.dart';
 import 'package:finanzas_lite/overlays/select_accounts/overlay.dart';
 import 'package:finanzas_lite/overlays/select_categories/screen.dart';
+import 'package:finanzas_lite/screens/budgets_screen/screen.dart';
 import 'package:finanzas_lite/utils/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,6 +24,9 @@ class CreateBudgetOverlay extends StatelessWidget {
     return GetBuilder<CreateBudgetState>(
       init: CreateBudgetState(),
       builder: (state) => FullScreenOverlay(
+        onClose: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const BudgetsScreen()),
+        ),
         title: "Crear Presupuesto",
         child: Column(
           children: [

@@ -93,7 +93,7 @@ class Navbar extends StatelessWidget {
 
   Widget _buildNavItem(NavItem navItem) {
     return GestureDetector(
-      onTap: () => Navigator.of(Get.context!).push(
+      onTap: () => Navigator.of(Get.context!).pushReplacement(
         MaterialPageRoute(
           builder: (context) => _getPageFromRoute(navItem.route),
         ),

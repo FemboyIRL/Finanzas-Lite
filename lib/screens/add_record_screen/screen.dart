@@ -422,7 +422,7 @@ class AddRecordScreen extends StatelessWidget {
           children: [
             // Botón cerrar
             GestureDetector(
-              onTap: () => state.onGoBack(),
+              onTap: () => state.onGoBack(context),
               child: const Icon(Icons.close, color: Colors.white),
             ),
 

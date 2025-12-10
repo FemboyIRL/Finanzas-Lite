@@ -4,6 +4,7 @@ import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:finanzas_lite/models/accounts/view_model.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/overlays/select_color/overlay.dart';
+import 'package:finanzas_lite/screens/budgets_screen/screen.dart';
 import 'package:finanzas_lite/utils/color_helper.dart';
 import 'package:finanzas_lite/utils/shared_preferences.dart';
 import 'package:finanzas_lite/utils/supabase.dart';
@@ -76,7 +77,9 @@ class CreateBudgetState extends GetxController {
       position: DelightSnackbarPosition.top,
     ).show(Get.context!);
 
-    Navigator.of(context).pop();
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (context) => BudgetsScreen()));
     update();
   }
 

@@ -128,22 +128,6 @@ class BudgetsScreen extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                GestureDetector(
-                  onTap: () => state.onGoBack(context),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.25),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                    child: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 15,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
                 const Text(
                   "Presupuestos",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),

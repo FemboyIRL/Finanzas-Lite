@@ -5,6 +5,7 @@ import 'package:finanzas_lite/models/transactions/transactions_view_model.dart';
 import 'package:finanzas_lite/screens/record_detail_screen/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 class RecordDetailsScreen extends StatelessWidget {
@@ -49,7 +50,7 @@ class RecordDetailsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () => state.onTapDelete(),
+                          onPressed: () => state.onTapDelete(transaction.id),
                           style: ButtonStyle(
                             backgroundColor: WidgetStateProperty.all(
                               Colors.red.withOpacity(0.2),
@@ -77,7 +78,7 @@ class RecordDetailsScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () => state.onTapSave(),
+                        onPressed: () => state.onTapEdit(),
                         style: ButtonStyle(
                           backgroundColor: WidgetStateProperty.all(
                             Color(0xFF6A66FF).withOpacity(0.2),
@@ -92,9 +93,11 @@ class RecordDetailsScreen extends StatelessWidget {
                           ),
                         ),
 
-                        child: Text(
-                          "Guardar",
-                          style: TextStyle(color: Color(0xFF6A66FF)),
+                        child: Obx(
+                          () => Text(
+                            state.isEditing.value ? "Guardar" : "Editar",
+                            style: TextStyle(color: Color(0xFF6A66FF)),
+                          ),
                         ),
                       ),
                     ),

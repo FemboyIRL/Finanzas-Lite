@@ -20,6 +20,8 @@ class HomeResources extends GetxController {
 
   late double balance = budgets.fold(0, (sum, b) => sum + b.limit);
 
+  late double categoriesTotal = 0;
+
   late double totalSpent = budgets.fold(
     0,
     (sum, b) => sum + b.currentAmountSpent,

@@ -10,17 +10,22 @@ class BudgetsState extends BudgetsResources {
     super.onInit();
     await supabase.init();
     await fetchData();
+    balance = budgets.fold(0, (sum, b) => sum + b.limit);
+    totalSpent = budgets.fold(0, (sum, b) => sum + b.currentAmountSpent);
+    totalRemaining = balance - totalSpent;
+    total = categories.fold(0, (sum, c) => sum + c.currentAmountSpent);
+    percentSpent = balance > 0 ? (totalSpent / balance) * 100 : 0;
+    update();
   }
 
   Future<void> fetchData() async {
     budgets.addAll(await supabase.fetchBudgets());
     categories.addAll(await supabase.fetchCategories());
     accounts.addAll(await supabase.fetchAccounts());
-    update();
   }
 
   void onTapNewBudget(BuildContext context) {
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) =>
             CreateBudgetOverlay(categories: categories, accounts: accounts),
@@ -34,9 +39,5 @@ class BudgetsState extends BudgetsResources {
         builder: (context) => BudgetsMenuOverlay(budget: budget),
       ),
     );
-  }
-
-  void onGoBack(BuildContext context) {
-    Navigator.of(context).pop();
   }
 }

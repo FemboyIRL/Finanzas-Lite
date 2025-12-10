@@ -23,15 +23,18 @@ class RecordsState extends GetxController {
   }
 
   List<TransactionViewModel> filteredOperations() {
-    // Falta agregar otros campos de busqueda, ej: por fecha, por descripcion
-    return transactions.where((item) {
-      final query = searchValue.value.toLowerCase();
+    final query = searchValue.value.toLowerCase();
 
+    return transactions.where((item) {
       final searchableText = [
-        item.account,
-        item.category,
+        item.account.name, // nombre de la cuenta
+        item.category.name, // nombre de la categoría
         item.description,
         item.amount.toString(),
+        item.date.toIso8601String(), // fecha en texto para búsquedas
+        item.type.name, // income / expense
+        item.fromAccount?.name ?? '',
+        item.toAccount?.name ?? '',
       ].join(' ').toLowerCase();
 
       return searchableText.contains(query);

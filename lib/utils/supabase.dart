@@ -133,6 +133,14 @@ class SupabaseHelper {
     }
   }
 
+  Future<void> deleteCategory(String id) async {
+    try {
+      await supabase.from("categories").delete().eq("id", id);
+    } catch (e) {
+      print("error deleting budget $e");
+    }
+  }
+
   // ========================
   // FETCH ACCOUNTS
   // ========================
@@ -148,6 +156,14 @@ class SupabaseHelper {
     } catch (e) {
       print("Error fetching accounts: $e");
       return [];
+    }
+  }
+
+  Future<void> deleteAccount(String id) async {
+    try {
+      await supabase.from("accounts").delete().eq("id", id);
+    } catch (e) {
+      print("error deleting budget $e");
     }
   }
 
@@ -172,6 +188,14 @@ class SupabaseHelper {
     } catch (e) {
       print("Error fetching transactions: $e");
       return [];
+    }
+  }
+
+  Future<void> deleteTransaction(String id) async {
+    try {
+      await supabase.from("transactions").delete().eq("id", id);
+    } catch (e) {
+      print("error deleting transaction $e");
     }
   }
 }

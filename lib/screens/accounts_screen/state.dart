@@ -2,6 +2,7 @@ import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:finanzas_lite/models/accounts/view_model.dart';
+import 'package:finanzas_lite/screens/home_screen/screen.dart';
 import 'package:finanzas_lite/utils/shared_preferences.dart';
 import 'package:finanzas_lite/utils/supabase.dart';
 import 'package:flutter/material.dart';
@@ -92,10 +93,6 @@ class AccountsState extends GetxController {
     });
 
     update();
-  }
-
-  void onGoBack(BuildContext context) {
-    Navigator.of(context).pop();
   }
 
   @override

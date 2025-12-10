@@ -103,25 +103,6 @@ class AccountsScreen extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: GestureDetector(
-                onTap: () => state.onGoBack(context),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.25),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  padding: const EdgeInsets.all(10.0),
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    size: 15,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-
             const Text(
               "Cartera",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),

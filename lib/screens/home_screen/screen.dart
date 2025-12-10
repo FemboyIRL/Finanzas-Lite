@@ -223,7 +223,7 @@ class HomeScreen extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                           Text(
-                            "${state.total.toStringAsFixed(2)}\$",
+                            "${state.categoriesTotal.toStringAsFixed(2)}\$",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,

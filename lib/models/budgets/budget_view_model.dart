@@ -53,6 +53,11 @@ class BudgetViewModel {
   }
 
   void recalculateAmountSpent() {
-    currentAmountSpent = transactions.fold(0.0, (sum, t) => sum + t.amount);
+    currentAmountSpent = transactions.fold(
+      0.0,
+      (sum, t) => t.type == TransactionType.expense
+          ? (sum + t.amount)
+          : (sum - t.amount),
+    );
   }
 }

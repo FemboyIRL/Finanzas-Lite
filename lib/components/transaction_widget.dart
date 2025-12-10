@@ -11,7 +11,7 @@ class TransactionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
+      onTap: () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => RecordDetailsScreen(transaction: transaction),
         ),
@@ -83,7 +83,7 @@ class TransactionWidget extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: transaction.amount >= 0
+                    color: transaction.type == TransactionType.income
                         ? const Color(0xFF00FF85)
                         : Colors.redAccent,
                   ),
