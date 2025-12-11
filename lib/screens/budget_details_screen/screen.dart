@@ -39,7 +39,7 @@ class BudgetDetailsScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(
                             left: 20,
                             right: 20,
-                            top: 30,
+                            top: 40,
                           ),
                           child: Text(
                             "Todas las Transacciones",
@@ -130,51 +130,51 @@ class BudgetDetailsScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 15,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     shape: BoxShape.rectangle,
+              //     color: Colors.black,
+              //     borderRadius: BorderRadius.circular(5),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(5.0),
+              //     child: Icon(
+              //       Icons.arrow_back_ios_new,
+              //       size: 15,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
 
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15.0,
-                    vertical: 5,
-                  ),
-                  child: Text("Noviembre"),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 15,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     shape: BoxShape.rectangle,
+              //     color: Colors.black,
+              //     borderRadius: BorderRadius.circular(12),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(
+              //       horizontal: 15.0,
+              //       vertical: 5,
+              //     ),
+              //     child: Text("Noviembre"),
+              //   ),
+              // ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     shape: BoxShape.rectangle,
+              //     color: Colors.black,
+              //     borderRadius: BorderRadius.circular(5),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(5.0),
+              //     child: Icon(
+              //       Icons.arrow_forward_ios,
+              //       size: 15,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

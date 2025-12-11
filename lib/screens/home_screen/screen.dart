@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                _topRow(),
+                // _topRow(),
                 const SizedBox(height: 15),
                 _totalBalanceCard(state),
                 const SizedBox(height: 15),

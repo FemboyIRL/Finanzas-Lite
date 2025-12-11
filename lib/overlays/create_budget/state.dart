@@ -18,9 +18,25 @@ class CreateBudgetState extends GetxController {
   var selectedAccounts = RxList<AccountViewModel>();
   var selectedCategories = RxList<CategoryViewModel>();
   final supabase = SupabaseHelper();
+  final accounts = <AccountViewModel>[].obs;
+  final categories = <CategoryViewModel>[];
 
   final nameController = TextEditingController();
   final amountController = TextEditingController();
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await supabase.init();
+    await fetchData();
+
+    update();
+  }
+
+  Future<void> fetchData() async {
+    categories.addAll(await supabase.fetchCategories());
+    accounts.addAll(await supabase.fetchAccounts());
+  }
 
   void onCreateBudget(BuildContext context) async {
     final userId = await SharedPreferencesMethods.getUserId();

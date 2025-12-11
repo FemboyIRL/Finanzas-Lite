@@ -11,13 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class CreateBudgetOverlay extends StatelessWidget {
-  final List<CategoryViewModel> categories;
-  final List<AccountViewModel> accounts;
-  const CreateBudgetOverlay({
-    super.key,
-    required this.categories,
-    required this.accounts,
-  });
+  const CreateBudgetOverlay({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +55,7 @@ class CreateBudgetOverlay extends StatelessWidget {
                         (context) => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => SelectAccountsOverlay(
-                              accounts: accounts,
+                              accounts: state.accounts,
                               onSave:
                                   (List<AccountViewModel> selectedAccounts) =>
                                       state.pickAccounts(selectedAccounts),
@@ -82,7 +76,7 @@ class CreateBudgetOverlay extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => SelectCategoriesOverlay(
-                                categories: categories,
+                                categories: state.categories,
                                 onSave:
                                     (
                                       List<CategoryViewModel>

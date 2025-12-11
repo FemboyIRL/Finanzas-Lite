@@ -2,6 +2,7 @@ import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:finanzas_lite/screens/home_screen/screen.dart';
+import 'package:finanzas_lite/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -60,6 +61,9 @@ class RegisterState extends GetxController {
         'email': email,
         'pin_code': pin,
       });
+
+      await SharedPreferencesMethods.setEmail(email);
+      await SharedPreferencesMethods.setUserId(userId);
 
       // Navegar a pantalla inicial
       Get.offAll(() => const HomeScreen());

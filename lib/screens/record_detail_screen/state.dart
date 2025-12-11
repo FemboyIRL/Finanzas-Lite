@@ -28,9 +28,9 @@ class RecordDetailsState extends GetxController {
     DelightToastBar(
       autoDismiss: true,
       builder: (context) => const ToastCard(
-        leading: Icon(Icons.check_circle, size: 28, color: Colors.green),
+        leading: Icon(Icons.warning, size: 28, color: Colors.yellow),
         title: Text(
-          "Función para la épica 2",
+          "Proximamente: función para la épica 2",
           style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
         ),
       ),

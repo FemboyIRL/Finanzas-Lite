@@ -1,3 +1,4 @@
+import 'package:finanzas_lite/overlays/create_budget/overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,4 +17,10 @@ class SelectColorState extends GetxController {
   var selectedColor = Color(0xFF6A66FF).obs;
 
   void pickColor(Color c) => selectedColor.value = c;
+
+  void onGoBack(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => CreateBudgetOverlay()),
+    );
+  }
 }

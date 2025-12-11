@@ -4,8 +4,8 @@ import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:finanzas_lite/models/accounts/view_model.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/screens/accounts_screen/screen.dart';
-import 'package:finanzas_lite/overlays/select_account.dart';
-import 'package:finanzas_lite/overlays/select_category.dart';
+import 'package:finanzas_lite/overlays/select_account/select_account.dart';
+import 'package:finanzas_lite/overlays/select_category/select_category.dart';
 import 'package:finanzas_lite/screens/add_record_screen/resources.dart';
 import 'package:finanzas_lite/screens/home_screen/screen.dart';
 import 'package:finanzas_lite/utils/shared_preferences.dart';
@@ -41,6 +41,21 @@ class AddRecordState extends AddRecordResources {
     if (type != "transfer") {
       selectedFromAccount.value = null;
     }
+
+    if (type == "transfer") {
+      DelightToastBar(
+        autoDismiss: true,
+        builder: (context) => const ToastCard(
+          leading: Icon(Icons.warning, size: 28, color: Colors.yellow),
+          title: Text(
+            "Proximamente: función para la épica 2",
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+          ),
+        ),
+        position: DelightSnackbarPosition.top,
+      ).show(Get.context!);
+      return;
+    }
     selectedRecordType.value = type;
   }
 
@@ -54,7 +69,6 @@ class AddRecordState extends AddRecordResources {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => SelectAccountOverlay(
-          accounts: accounts,
           onAddAccount: () => onTapAddAccount(),
           onSelectAccount: (AccountViewModel account) {
             onSelectAccount(selectedOption, account);
@@ -68,7 +82,6 @@ class AddRecordState extends AddRecordResources {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => SelectCategoryOverlay(
-          categories: categories,
           onSelectCategory: (CategoryViewModel category) {
             onSelectCategory(category);
           },

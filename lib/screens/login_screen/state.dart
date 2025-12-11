@@ -15,6 +15,8 @@ class LoginEmailState extends GetxController {
   void onInit() async {
     super.onInit();
 
+    await SharedPreferencesMethods.setUserId("");
+
     final email = await SharedPreferencesMethods.getEmail();
 
     if (email != null) {
@@ -40,10 +42,14 @@ class LoginEmailState extends GetxController {
           .eq('email', email)
           .maybeSingle();
 
+      print(response);
+
       if (response == null) {
         Get.to(() => const RegisterScreen(), arguments: email);
         return;
       }
+
+      await SharedPreferencesMethods.setEmail(email);
 
       Get.to(() => const EnterPinScreen(), arguments: email);
     } catch (e) {

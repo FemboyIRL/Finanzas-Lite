@@ -10,8 +10,9 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
 
   await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+    url: "https://afmhatdjnlxoosyjhexe.supabase.co",
+    anonKey:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmbWhhdGRqbmx4b29zeWpoZXhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NzIwMzIsImV4cCI6MjA3OTI0ODAzMn0.ZaT4hyigD_8dC5c6PwxirZ8wyCADl14D3LsIh8VH8u0",
   );
 
   runApp(const FinanzasLiteApp());

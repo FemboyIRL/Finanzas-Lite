@@ -1,9 +1,7 @@
 import 'package:finanzas_lite/components/overlay.dart';
 import 'package:finanzas_lite/overlays/select_color/state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class SelectColorOverlay extends StatelessWidget {
   final Function(Color) onSave;
@@ -15,6 +13,7 @@ class SelectColorOverlay extends StatelessWidget {
     return GetBuilder<SelectColorState>(
       init: SelectColorState(),
       builder: (state) => FullScreenOverlay(
+        onClose: () => state.onGoBack(context),
         title: "Seleccionar Color",
         child: SizedBox(
           width: double.infinity,

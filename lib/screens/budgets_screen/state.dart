@@ -26,15 +26,12 @@ class BudgetsState extends BudgetsResources {
 
   void onTapNewBudget(BuildContext context) {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) =>
-            CreateBudgetOverlay(categories: categories, accounts: accounts),
-      ),
+      MaterialPageRoute(builder: (context) => CreateBudgetOverlay()),
     );
   }
 
   void onTapOpenMenu(BuildContext context, BudgetViewModel budget) {
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => BudgetsMenuOverlay(budget: budget),
       ),

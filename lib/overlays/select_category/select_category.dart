@@ -1,36 +1,35 @@
 import 'package:finanzas_lite/components/overlay.dart';
 import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/overlays/add_category.dart';
+import 'package:finanzas_lite/overlays/select_category/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class SelectCategoryOverlay extends StatelessWidget {
-  final List<CategoryViewModel> categories;
   final Function(CategoryViewModel) onSelectCategory;
-  const SelectCategoryOverlay({
-    super.key,
-    required this.categories,
-    required this.onSelectCategory,
-  });
+  const SelectCategoryOverlay({super.key, required this.onSelectCategory});
 
   @override
   Widget build(BuildContext context) {
-    return FullScreenOverlay(
-      title: 'Seleccionar Categoría',
-      child: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: categories
-                  .map((cat) => _buildCategoryEntry(cat))
-                  .toList(),
+    return GetBuilder<SelectCategoryState>(
+      init: SelectCategoryState(),
+      builder: (state) => FullScreenOverlay(
+        title: 'Seleccionar Categoría',
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: state.categories
+                    .map((cat) => _buildCategoryEntry(cat))
+                    .toList(),
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-          _buildAddNewCategory(context),
-        ],
+            _buildAddNewCategory(context),
+          ],
+        ),
       ),
     );
   }
@@ -102,8 +101,8 @@ class SelectCategoryOverlay extends StatelessWidget {
   }
 
   void onAddCategory(BuildContext context) {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (context) => AddCategoryOverlay()));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => AddCategoryOverlay()),
+    );
   }
 }

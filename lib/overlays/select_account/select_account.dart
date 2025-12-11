@@ -1,36 +1,38 @@
 import 'package:finanzas_lite/components/overlay.dart';
 import 'package:finanzas_lite/models/accounts/view_model.dart';
+import 'package:finanzas_lite/overlays/select_account/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class SelectAccountOverlay extends StatelessWidget {
-  final List<AccountViewModel> accounts;
   final VoidCallback? onAddAccount;
   final Function(AccountViewModel) onSelectAccount;
 
   const SelectAccountOverlay({
     super.key,
-    required this.accounts,
     this.onAddAccount,
     required this.onSelectAccount,
   });
 
   @override
   Widget build(BuildContext context) {
-    return FullScreenOverlay(
-      title: "Seleccionar Cuenta",
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Lista de cuentas existentes
-          ...accounts.map((acc) => _buildAccountEntry(acc)).toList(),
+    return GetBuilder<SelectAccountState>(
+      init: SelectAccountState(),
+      builder: (state) => FullScreenOverlay(
+        title: "Seleccionar Cuenta",
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Lista de cuentas existentes
+            ...state.accounts.map((acc) => _buildAccountEntry(acc)).toList(),
 
-          const SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-          _buildAddNewAccount(),
-        ],
+            _buildAddNewAccount(),
+          ],
+        ),
       ),
     );
   }

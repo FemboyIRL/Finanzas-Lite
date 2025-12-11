@@ -1,3 +1,4 @@
+import 'package:finanzas_lite/screens/budgets_screen/screen.dart';
 import 'package:finanzas_lite/utils/supabase.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,8 @@ class BudgetMenuState extends GetxController {
   Future<void> onDeleteBudget(String id) async {
     await supabase.deleteBudget(id);
 
-    Navigator.of(Get.context!).pop();
+    Navigator.of(Get.context!).pushReplacement(
+      MaterialPageRoute(builder: (context) => const BudgetsScreen()),
+  );
   }
 }
