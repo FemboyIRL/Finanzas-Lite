@@ -23,7 +23,7 @@ class StatisticsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 60, right: 20, left: 20),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                _topRow(),
+                // _topRow(),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                   child: _categoriesCard(state, context),

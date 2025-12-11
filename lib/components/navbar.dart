@@ -60,7 +60,7 @@ class Navbar extends StatelessWidget {
                     children: [
                       Container(
                         width: 50,
-                        height: 50,
+                        height: 75,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [Color(0xFF6A66FF), Color(0xFF8B86FF)],
