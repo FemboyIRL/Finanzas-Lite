@@ -1,13 +1,22 @@
 import 'package:finanzas_lite/models/nav_item.dart';
+import 'package:finanzas_lite/screens/accounts_screen/screen.dart';
+import 'package:finanzas_lite/screens/add_record_screen/screen.dart';
+import 'package:finanzas_lite/screens/budgets_screen/screen.dart';
 import 'package:finanzas_lite/screens/home_screen/screen.dart';
+import 'package:finanzas_lite/screens/records_screen/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class Navbar extends StatelessWidget {
-  final List<NavItem> navItems;
+  final navItems = <NavItem>[
+    NavItem(iconPath: "assets/svgs/navbar/Home.svg", route: "/home"),
+    NavItem(iconPath: "assets/svgs/navbar/Wallet.svg", route: "/accounts"),
+    NavItem(iconPath: "assets/svgs/navbar/Stats.svg", route: "/stats"),
+    NavItem(iconPath: "assets/svgs/navbar/User.svg", route: "/budgets"),
+  ];
 
-  const Navbar({super.key, required this.navItems});
+  Navbar({super.key});
 
   @override
   @override
@@ -40,30 +49,37 @@ class Navbar extends StatelessWidget {
               SizedBox(
                 width: 50,
                 height: 50,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF6A66FF), Color(0xFF8B86FF)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF6A66FF).withOpacity(0.5),
-                            blurRadius: 10,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                      ),
+                child: GestureDetector(
+                  onTap: () => Navigator.of(Get.context!).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const AddRecordScreen(),
                     ),
-                    Icon(Icons.add, color: Colors.white, size: 28),
-                  ],
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 75,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Color(0xFF6A66FF), Color(0xFF8B86FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF6A66FF).withOpacity(0.5),
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(Icons.add, color: Colors.white, size: 28),
+                    ],
+                  ),
                 ),
               ),
               _buildNavItem(navItems[2]),
@@ -77,7 +93,7 @@ class Navbar extends StatelessWidget {
 
   Widget _buildNavItem(NavItem navItem) {
     return GestureDetector(
-      onTap: () => Navigator.of(Get.context!).push(
+      onTap: () => Navigator.of(Get.context!).pushReplacement(
         MaterialPageRoute(
           builder: (context) => _getPageFromRoute(navItem.route),
         ),
@@ -96,12 +112,12 @@ class Navbar extends StatelessWidget {
     switch (route) {
       case '/home':
         return HomeScreen();
-      case '/wallet':
-      // return WalletScreen();
+      case '/accounts':
+        return AccountsScreen();
       case '/stats':
-      // return StatsScreen();
-      case '/profile':
-      // return ProfileScreen();
+        return RecordsScreen();
+      case '/budgets':
+        return BudgetsScreen();
       default:
         return HomeScreen();
     }

@@ -3,8 +3,10 @@ import 'package:finanzas_lite/components/category_info_card.dart';
 import 'package:finanzas_lite/components/common_scaffold.dart';
 import 'package:finanzas_lite/components/navbar.dart';
 import 'package:finanzas_lite/components/transaction_widget.dart';
+import 'package:finanzas_lite/models/categories/category_view_model.dart';
 import 'package:finanzas_lite/screens/home_screen/state.dart';
 import 'package:finanzas_lite/utils/custom_doughnut_chart.dart';
+import 'package:finanzas_lite/utils/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -22,20 +24,20 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                _topRow(),
+                // _topRow(),
                 const SizedBox(height: 15),
-                _totalBalanceCard(),
+                _totalBalanceCard(state),
                 const SizedBox(height: 15),
-                _budgetCard(state),
+                _budgetCard(state, context),
                 const SizedBox(height: 15),
-                _categoriesCard(state),
+                _categoriesCard(state, context),
                 const SizedBox(height: 15),
-                _lastTractions(state),
+                _lastTransactions(state, context),
               ]),
             ),
           ),
         ],
-        bottomNavigationBar: Navbar(navItems: state.navItems),
+        bottomNavigationBar: Navbar(),
       ),
     );
   }
@@ -86,7 +88,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _lastTractions(HomeState state) {
+  SizedBox _lastTransactions(HomeState state, BuildContext context) {
     return SizedBox(
       child: Column(
         children: [
@@ -96,26 +98,31 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(
-            height: 250,
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              scrollDirection: Axis.vertical,
-              itemCount: state.transactions.length,
-              itemBuilder: (context, index) {
-                final transaction = state.transactions[index];
-                return Container(
-                  width: 150,
-                  margin: const EdgeInsets.only(bottom: 12),
-                  child: TransactionWidget(transaction: transaction),
-                );
-              },
-            ),
-          ),
+          state.transactions.isNotEmpty
+              ? SizedBox(
+                  height: 250,
+                  child: ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    scrollDirection: Axis.vertical,
+                    itemCount: state.transactions.length,
+                    itemBuilder: (context, index) {
+                      final transaction = state.transactions[index];
+                      return Container(
+                        width: 150,
+                        margin: const EdgeInsets.only(bottom: 12),
+                        child: TransactionWidget(transaction: transaction),
+                      );
+                    },
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Text("No has registrado transacciones aún"),
+                ),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => state.onTapAllTransactions(context),
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(
                   const Color(0x806A66FF).withOpacity(0.2),
@@ -140,7 +147,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _categoriesCard(HomeState state) {
+  SizedBox _categoriesCard(HomeState state, BuildContext context) {
     return SizedBox(
       child: Card(
         child: Padding(
@@ -161,7 +168,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => state.onTapAllStats(context),
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(
                         const Color(0x806A66FF).withOpacity(0.2),
@@ -216,7 +223,7 @@ class HomeScreen extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                           Text(
-                            "\$${state.total.toStringAsFixed(0)}",
+                            "${state.categoriesTotal.toStringAsFixed(2)}\$",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -254,12 +261,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _budgetCard(HomeState state) {
-    // valores de prueba
-    double total = 14500;
-    double gasto = 12450.30;
-    double progreso = gasto / total; // porcentaje gastado
-
+  SizedBox _budgetCard(HomeState state, BuildContext context) {
     return SizedBox(
       child: Card(
         child: Padding(
@@ -280,7 +282,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => state.onTapAllBudgets(context),
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(
                         const Color(0x806A66FF).withOpacity(0.2),
@@ -303,39 +305,26 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Row(
-                children: const [
-                  Text("\$14,500.00", style: TextStyle(fontSize: 25)),
+                children: [
+                  Text(
+                    "${state.totalRemaining}\$",
+                    style: TextStyle(fontSize: 25),
+                  ),
                   Text(" restantes", style: TextStyle(fontSize: 15)),
                 ],
               ),
-              const Text(
-                "- \$12,450.30 gastados este mes",
+              Text(
+                "- \$${state.totalSpent} gastados este mes",
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               const SizedBox(height: 12),
 
               // Barra de gastos vs restante
-              Stack(
-                children: [
-                  Container(
-                    height: 8,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade800,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                  Container(
-                    height: 8,
-                    width: progreso.clamp(0.0, 1.0) * 250,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF6A66FF),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                ],
+              ProgressBar(
+                limit: state.total,
+                spent: state.totalSpent,
+                color: Colors.deepPurpleAccent,
               ),
-
               Divider(height: 30, color: Colors.grey.withOpacity(0.3)),
 
               SizedBox(
@@ -360,7 +349,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _totalBalanceCard() {
+  SizedBox _totalBalanceCard(HomeState state) {
     return SizedBox(
       width: double.infinity,
       height: 100,
@@ -375,7 +364,7 @@ class HomeScreen extends StatelessWidget {
                 "Balance Total",
                 style: TextStyle(color: Colors.grey, fontSize: 15),
               ),
-              Text("\$26,000.00", style: TextStyle(fontSize: 25)),
+              Text("${state.total}\$", style: TextStyle(fontSize: 25)),
             ],
           ),
         ),
